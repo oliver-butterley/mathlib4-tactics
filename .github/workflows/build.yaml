@@ -34,6 +34,9 @@ jobs:
       - name: override elan default
         run: elan override set leanprover/lean4:nightly
 
+      - name: lake update
+        run: lake update
+
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
