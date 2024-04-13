@@ -5,7 +5,7 @@ def main():
 
   pattern = r'syntax "(.*?)".*?\[(.*)\]'
 
-  replacement = r"# \1\nDefined in: `\2`"
+  replacement = r"# \1\nDefined in: `\2`\n"
 
   with open(file_path, 'r', encoding='utf-8') as file:
     content = "".join([re.sub(r'^\s\s', '', line) for line in file])
