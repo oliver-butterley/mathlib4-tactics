@@ -1,5 +1,6 @@
 # #check
 Defined in: `Mathlib.Tactic.«tactic#check__»`
+
 The `#check t` tactic elaborates the term `t` and then pretty prints it with its type as `e : ty`.
 
 If `t` is an identifier, then it pretty prints a type declaration form
@@ -12,24 +13,29 @@ These become metavariables in the output.
 # #find
 Defined in: `Mathlib.Tactic.Find.«tactic#find_»`
 
+
 # (
 Defined in: `Lean.Parser.Tactic.paren`
+
 `(tacs)` executes a list of tactics in sequence, without requiring that
 the goal be closed at the end like `· tacs`. Like `by` itself, the tactics
 can be either separated by newlines or `;`.
 
 # _
 Defined in: `Std.Tactic.tactic_`
+
 `_` in tactic position acts like the `done` tactic: it fails and gives the list
 of goals if there are any. It is useful as a placeholder after starting a tactic block
 such as `by _` to make it syntactically correct and show the current goal.
 
 # abel
 Defined in: `Mathlib.Tactic.Abel.abel_term`
+
 Unsupported legacy syntax from mathlib3, which allowed passing additional terms to `abel`.
 
 # abel
 Defined in: `Mathlib.Tactic.Abel.abel`
+
 Tactic for evaluating expressions in abelian groups.
 
 * `abel!` will use a more aggressive reducibility setting to determine equality of atoms.
@@ -43,10 +49,12 @@ example [AddCommGroup α] (a : α) : (3 : ℤ) • a = a + (2 : ℤ) • a := by
 
 # abel!
 Defined in: `Mathlib.Tactic.Abel.abel!_term`
+
 Unsupported legacy syntax from mathlib3, which allowed passing additional terms to `abel!`.
 
 # abel!
 Defined in: `Mathlib.Tactic.Abel.tacticAbel!`
+
 Tactic for evaluating expressions in abelian groups.
 
 * `abel!` will use a more aggressive reducibility setting to determine equality of atoms.
@@ -60,6 +68,7 @@ example [AddCommGroup α] (a : α) : (3 : ℤ) • a = a + (2 : ℤ) • a := by
 
 # abel1
 Defined in: `Mathlib.Tactic.Abel.abel1`
+
 Tactic for solving equations in the language of
 *additive*, commutative monoids and groups.
 This version of `abel` fails if the target is not an equality
@@ -70,6 +79,7 @@ This can prove goals that `abel` cannot, but is more expensive.
 
 # abel1!
 Defined in: `Mathlib.Tactic.Abel.abel1!`
+
 Tactic for solving equations in the language of
 *additive*, commutative monoids and groups.
 This version of `abel` fails if the target is not an equality
@@ -80,6 +90,7 @@ This can prove goals that `abel` cannot, but is more expensive.
 
 # abel_nf
 Defined in: `Mathlib.Tactic.Abel.abelNF`
+
 Simplification tactic for expressions in the language of abelian groups,
 which rewrites all group expressions into a normal form.
 * `abel_nf!` will use a more aggressive reducibility setting to identify atoms.
@@ -91,6 +102,7 @@ which rewrites all group expressions into a normal form.
 
 # abel_nf!
 Defined in: `Mathlib.Tactic.Abel.tacticAbel_nf!__`
+
 Simplification tactic for expressions in the language of abelian groups,
 which rewrites all group expressions into a normal form.
 * `abel_nf!` will use a more aggressive reducibility setting to identify atoms.
@@ -102,11 +114,13 @@ which rewrites all group expressions into a normal form.
 
 # absurd
 Defined in: `Std.Tactic.tacticAbsurd_`
+
 Given a proof `h` of `p`, `absurd h` changes the goal to `⊢ ¬ p`.
 If `p` is a negation `¬q` then the goal is changed to `⊢ q` instead.
 
 # ac_change
 Defined in: `Mathlib.Tactic.acChange`
+
 `ac_change g using n` is `convert_to g using n` followed by `ac_rfl`. It is useful for
 rearranging/reassociating e.g. sums:
 ```lean
@@ -117,6 +131,7 @@ example (a b c d e f g N : ℕ) : (a + b) + (c + d) + (e + f) + g ≤ N := by
 
 # ac_rfl
 Defined in: `Lean.Parser.Tactic.acRfl`
+
 `ac_rfl` proves equalities up to application of an associative and commutative operator.
 ```
 instance : Associative (α := Nat) (.+.) := ⟨Nat.add_assoc⟩
@@ -127,10 +142,12 @@ example (a b c d : Nat) : a + b + c + d = d + (b + c) + a := by ac_rfl
 
 # admit
 Defined in: `Lean.Parser.Tactic.tacticAdmit`
+
 `admit` is a shorthand for `exact sorry`.
 
 # aesop
 Defined in: `Aesop.Frontend.Parser.aesopTactic`
+
 `aesop <clause>*` tries to solve the current goal by applying a set of rules
 registered with the `@[aesop]` attribute. See [its
 README](https://github.com/JLimperg/aesop#readme) for a tutorial and a
@@ -159,6 +176,7 @@ clauses are:
 
 # aesop?
 Defined in: `Aesop.Frontend.Parser.aesopTactic?`
+
 `aesop <clause>*` tries to solve the current goal by applying a set of rules
 registered with the `@[aesop]` attribute. See [its
 README](https://github.com/JLimperg/aesop#readme) for a tutorial and a
@@ -188,8 +206,10 @@ clauses are:
 # aesop_cases
 Defined in: `Aesop.tacticAesop_cases_`
 
+
 # aesop_cat
 Defined in: `CategoryTheory.aesop_cat`
+
 A thin wrapper for `aesop` which adds the `CategoryTheory` rule set and
 allows `aesop` to look through semireducible definitions when calling `intros`.
 It also turns on `zetaDelta` in the `simp` config, allowing `aesop_cat` to unfold any `let`s.
@@ -198,10 +218,12 @@ use in auto-params.
 
 # aesop_cat?
 Defined in: `CategoryTheory.aesop_cat?`
+
 We also use `aesop_cat?` to pass along a `Try this` suggestion when using `aesop_cat`
 
 # aesop_cat_nonterminal
 Defined in: `CategoryTheory.aesop_cat_nonterminal`
+
 A variant of `aesop_cat` which does not fail when it is unable to solve the
 goal. Use this only for exploration! Nonterminal `aesop` is even worse than
 nonterminal `simp`.
@@ -209,33 +231,42 @@ nonterminal `simp`.
 # aesop_destruct_products
 Defined in: `Aesop.BuiltinRules.tacticAesop_destruct_products`
 
+
 # aesop_split_hyps
 Defined in: `Aesop.BuiltinRules.tacticAesop_split_hyps`
+
 
 # aesop_subst
 Defined in: `Aesop.BuiltinRules.«tacticAesop_subst[_,,]»`
 
+
 # aesop_subst
 Defined in: `Aesop.BuiltinRules.tacticAesop_subst_`
+
 
 # aesop_unfold
 Defined in: `Aesop.«tacticAesop_unfold[_,,]»`
 
+
 # all_goals
 Defined in: `Lean.Parser.Tactic.allGoals`
+
 `all_goals tac` runs `tac` on each goal, concatenating the resulting goals, if any.
 
 # and_intros
 Defined in: `Lean.Parser.Tactic.tacticAnd_intros`
+
 `and_intros` applies `And.intro` until it does not make progress.
 
 # any_goals
 Defined in: `Lean.Parser.Tactic.anyGoals`
+
 `any_goals tac` applies the tactic `tac` to every goal, and succeeds if at
 least one application succeeds.
 
 # apply
 Defined in: `Mathlib.Tactic.tacticApply_At_`
+
 `apply t at i` will use forward reasoning with `t` at the hypothesis `i`.
 Explicitly, if `t : α₁ → ⋯ → αᵢ → ⋯ → αₙ` and `i` has type `αᵢ`, then this tactic will add
 metavariables/goals for any terms of `αⱼ` for `j = 1, …, i-1`,
@@ -244,6 +275,7 @@ original `i`.
 
 # apply
 Defined in: `Lean.Parser.Tactic.apply`
+
 `apply e` tries to match the current goal against the conclusion of `e`'s type.
 If it succeeds, then the tactic returns as many subgoals as the number of premises that
 have not been fixed by type inference or type class resolution.
@@ -254,11 +286,13 @@ and first-order unification with dependent types.
 
 # apply
 Defined in: `Mathlib.Tactic.applyWith`
+
 `apply (config := cfg) e` is like `apply e` but allows you to provide a configuration
 `cfg : ApplyConfig` to pass to the underlying apply operation.
 
 # apply?
 Defined in: `Lean.Parser.Tactic.apply?`
+
 Searches environment for definitions or theorems that can refine the goal using `apply`
 with conditions resolved when possible with `solve_by_elim`.
 
@@ -267,6 +301,7 @@ used when closing the goal.
 
 # apply_assumption
 Defined in: `Lean.Parser.Tactic.applyAssumption`
+
 `apply_assumption` looks for an assumption of the form `... → ∀ _, ... → head`
 where `head` matches the current goal.
 
@@ -288,10 +323,12 @@ The options supported are the same as for `solve_by_elim` (and include all the o
 
 # apply_ext_theorem
 Defined in: `Lean.Elab.Tactic.Ext.applyExtTheorem`
+
 Apply a single extensionality theorem to the current goal.
 
 # apply_fun
 Defined in: `Mathlib.Tactic.applyFun`
+
 Apply a function to an equality or inequality in either a local hypothesis or the goal.
 
 * If we have `h : a = b`, then `apply_fun f at h` will replace this with `h : f a = f b`.
@@ -330,10 +367,12 @@ placeholders. Named placeholders (like `?a` or `?_`) will produce new goals.
 
 # apply_mod_cast
 Defined in: `Lean.Parser.Tactic.tacticApply_mod_cast_`
+
 Normalize casts in the goal and the given expression, then `apply` the expression to the goal.
 
 # apply_rules
 Defined in: `Lean.Parser.Tactic.applyRules`
+
 `apply_rules [l₁, l₂, ...]` tries to solve the main goal by iteratively
 applying the list of lemmas `[l₁, l₂, ...]` or by applying a local hypothesis.
 If `apply` generates new goals, `apply_rules` iteratively tries to solve those goals.
@@ -358,38 +397,45 @@ a lemma from the list until it gets stuck.
 
 # arith_mult
 Defined in: `ArithmeticFunction.arith_mult`
+
 `arith_mult` solves goals of the form `IsMultiplicative f` for `f : ArithmeticFunction R`
 by applying lemmas tagged with the user attribute `arith_mult`.
 
 # arith_mult?
 Defined in: `ArithmeticFunction.arith_mult?`
+
 `arith_mult` solves goals of the form `IsMultiplicative f` for `f : ArithmeticFunction R`
 by applying lemmas tagged with the user attribute `arith_mult`, and prints out the generated
 proof term.
 
 # array_get_dec
 Defined in: `Array.tacticArray_get_dec`
+
 This tactic, added to the `decreasing_trivial` toolbox, proves that
 `sizeOf arr[i] < sizeOf arr`, which is useful for well founded recursions
 over a nested inductive like `inductive T | mk : Array T → T`.
 
 # array_mem_dec
 Defined in: `Array.tacticArray_mem_dec`
+
 This tactic, added to the `decreasing_trivial` toolbox, proves that `sizeOf a < sizeOf arr`
 provided that `a ∈ arr` which is useful for well founded recursions over a nested inductive like
 `inductive T | mk : Array T → T`.
 
 # assumption
 Defined in: `Lean.Parser.Tactic.assumption`
+
 `assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.
 Note also the `‹t›` term notation, which is a shorthand for `show t by assumption`.
 
 # assumption'
 Defined in: `Mathlib.Tactic.tacticAssumption'`
+
 Try calling `assumption` on all goals; succeeds if it closes at least one goal.
 
 # assumption_mod_cast
 Defined in: `Lean.Parser.Tactic.tacticAssumption_mod_cast`
+
 `assumption_mod_cast` is a variant of `assumption` that solves the goal
 using a hypothesis. Unlike `assumption`, it first pre-processes the goal and
 each hypothesis to move casts as far outwards as possible, so it can be used
@@ -400,14 +446,17 @@ normalizes `h` with `norm_cast` and tries to use that to close the goal.
 
 # aux_group₁
 Defined in: `Mathlib.Tactic.Group.aux_group₁`
+
 Auxiliary tactic for the `group` tactic. Calls the simplifier only.
 
 # aux_group₂
 Defined in: `Mathlib.Tactic.Group.aux_group₂`
+
 Auxiliary tactic for the `group` tactic. Calls `ring_nf` to normalize exponents.
 
 # bddDefault
 Defined in: `tacticBddDefault`
+
 Sets are automatically bounded or cobounded in complete lattices. To use the same statements
 in complete and conditionally complete lattices but let automation fill automatically the
 boundedness proofs in complete lattices, we use the tactic `bddDefault` in the statements,
@@ -415,6 +464,7 @@ in the form `(hA : BddAbove A := by bddDefault)`.
 
 # beta_reduce
 Defined in: `Mathlib.Tactic.betaReduceStx`
+
 `beta_reduce at loc` completely beta reduces the given location.
 This also exists as a `conv`-mode tactic.
 
@@ -424,16 +474,19 @@ yielding an expression such as `f y`.
 
 # bicategory_coherence
 Defined in: `Mathlib.Tactic.BicategoryCoherence.tacticBicategory_coherence`
+
 Coherence tactic for bicategories.
 Use `pure_coherence` instead, which is a frontend to this one.
 
 # bitwise_assoc_tac
 Defined in: `Nat.tacticBitwise_assoc_tac`
+
 Proving associativity of bitwise operations in general essentially boils down to a huge case
 distinction, so it is shorter to use this tactic instead of proving it in the general case.
 
 # borelize
 Defined in: `Mathlib.Tactic.Borelize.tacticBorelize___`
+
 The behaviour of `borelize α` depends on the existing assumptions on `α`.
 
 - if `α` is a topological space with instances `[MeasurableSpace α] [BorelSpace α]`, then
@@ -444,16 +497,19 @@ Finally, `borelize α β γ` runs `borelize α; borelize β; borelize γ`.
 
 # bv_omega
 Defined in: `Lean.Parser.Tactic.tacticBv_omega`
+
 `bv_omega` is `omega` with an additional preprocessor that turns statements about `BitVec` into statements about `Nat`.
 Currently the preprocessor is implemented as `try simp only [bv_toNat] at *`.
 `bv_toNat` is a `@[simp]` attribute that you can (cautiously) add to more theorems.
 
 # by_cases
 Defined in: `«tacticBy_cases_:_»`
+
 `by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.
 
 # by_contra
 Defined in: `Std.Tactic.byContra`
+
 `by_contra h` proves `⊢ p` by contradiction,
 introducing a hypothesis `h : ¬p` and proving `False`.
 * If `p` is a negation `¬q`, `h : q` will be introduced instead of `¬¬q`.
@@ -462,6 +518,7 @@ introducing a hypothesis `h : ¬p` and proving `False`.
 
 # by_contra!
 Defined in: `byContra!`
+
 If the target of the main goal is a proposition `p`,
 `by_contra!` reduces the goal to proving `False` using the additional hypothesis `this : ¬ p`.
 `by_contra! h` can be used to name the hypothesis `h : ¬ p`.
@@ -486,6 +543,7 @@ example : 1 < 2 := by
 
 # calc
 Defined in: `calcTactic`
+
 Step-wise reasoning over transitive relations.
 ```
 calc
@@ -526,8 +584,10 @@ See [Theorem Proving in Lean 4][tpil4] for more information.
 # cancel_denoms
 Defined in: `tacticCancel_denoms_`
 
+
 # cancel_denoms
 Defined in: `cancelDenoms`
+
 `cancel_denoms` attempts to remove numerals from the denominators of fractions.
 It works on propositions that are field-valued inequalities.
 
@@ -545,6 +605,7 @@ example (h : a > 0) : a / 5 > 0 := by
 
 # case
 Defined in: `Std.Tactic.casePatt`
+
 * `case _ : t => tac` finds the first goal that unifies with `t` and then solves it
 using `tac` or else fails. Like `show`, it changes the type of the goal to `t`.
 The `_` can optionally be a case tag, in which case it only looks at goals
@@ -571,6 +632,7 @@ In particular, the goal becomes metavariable `?m`.
 
 # case
 Defined in: `Lean.Parser.Tactic.case`
+
 * `case tag => tac` focuses on the goal with case name `tag` and solves it using `tac`,
   or else fails.
 * `case tag x₁ ... xₙ => tac` additionally renames the `n` most recent hypotheses
@@ -579,6 +641,7 @@ Defined in: `Lean.Parser.Tactic.case`
 
 # case'
 Defined in: `Lean.Parser.Tactic.case'`
+
 `case'` is similar to the `case tag => tac` tactic, but does not ensure the goal
 has been solved after applying `tac`, nor admits the goal if `tac` failed.
 Recall that `case` closes the goal using `sorry` when `tac` fails, and
@@ -586,6 +649,7 @@ the tactic execution is not interrupted.
 
 # case'
 Defined in: `Std.Tactic.casePatt'`
+
 `case' _ : t => tac` is similar to the `case _ : t => tac` tactic,
 but it does not ensure the goal has been solved after applying `tac`,
 nor does it admit the goal if `tac` failed.
@@ -594,6 +658,7 @@ and the tactic execution is not interrupted.
 
 # cases
 Defined in: `Lean.Parser.Tactic.cases`
+
 Assuming `x` is a variable in the local context with an inductive type,
 `cases x` splits the main goal, producing one goal for each constructor of the
 inductive type, in which the target is replaced by a general instance of that constructor.
@@ -619,8 +684,10 @@ You can use `with` to provide the variables names for each constructor.
 # cases'
 Defined in: `Mathlib.Tactic.cases'`
 
+
 # cases_type
 Defined in: `Mathlib.Tactic.casesType`
+
 * `cases_type I` applies the `cases` tactic to a hypothesis `h : (I ...)`
 * `cases_type I_1 ... I_n` applies the `cases` tactic to a hypothesis
   `h : (I_1 ...)` or ... or `h : (I_n ...)`
@@ -634,6 +701,7 @@ cases_type* Or And
 
 # cases_type!
 Defined in: `Mathlib.Tactic.casesType!`
+
 * `cases_type I` applies the `cases` tactic to a hypothesis `h : (I ...)`
 * `cases_type I_1 ... I_n` applies the `cases` tactic to a hypothesis
   `h : (I_1 ...)` or ... or `h : (I_n ...)`
@@ -647,6 +715,7 @@ cases_type* Or And
 
 # casesm
 Defined in: `Mathlib.Tactic.casesM`
+
 * `casesm p` applies the `cases` tactic to a hypothesis `h : type`
   if `type` matches the pattern `p`.
 * `casesm p_1, ..., p_n` applies the `cases` tactic to a hypothesis `h : type`
@@ -661,6 +730,7 @@ casesm* _ ∨ _, _ ∧ _
 
 # change
 Defined in: `Lean.Parser.Tactic.change`
+
 * `change tgt'` will change the goal from `tgt` to `tgt'`,
   assuming these are definitionally equal.
 * `change t' at h` will change hypothesis `h : t` to have type `t'`, assuming
@@ -668,12 +738,14 @@ Defined in: `Lean.Parser.Tactic.change`
 
 # change
 Defined in: `Lean.Parser.Tactic.changeWith`
+
 * `change a with b` will change occurrences of `a` to `b` in the goal,
   assuming `a` and `b` are are definitionally equal.
 * `change a with b at h` similarly changes `a` to `b` in the type of hypothesis `h`.
 
 # change?
 Defined in: `change?`
+
 `change? term` unifies `term` with the current goal, then suggests explicit `change` syntax
 that uses the resulting unified term.
 
@@ -687,6 +759,7 @@ example : (fun x : Nat => x) 0 = 1 := by
 
 # checkpoint
 Defined in: `Lean.Parser.Tactic.checkpoint`
+
 `checkpoint tac` acts the same as `tac`, but it caches the input and output of `tac`,
 and if the file is re-elaborated and the input matches, the tactic is not re-run and
 its effects are reapplied to the state. This is useful for improving responsiveness
@@ -699,6 +772,7 @@ this combinator explicitly.)
 
 # choose
 Defined in: `Mathlib.Tactic.Choose.choose`
+
 * `choose a b h h' using hyp` takes a hypothesis `hyp` of the form
   `∀ (x : X) (y : Y), ∃ (a : A) (b : B), P x y a b ∧ Q x y a b`
   for some `P Q : X → Y → A → B → Prop` and outputs
@@ -738,6 +812,7 @@ example (h : ∀ i : ℕ, i < 7 → ∃ j, i < j ∧ j < i+i) : True := by
 
 # choose!
 Defined in: `Mathlib.Tactic.Choose.tacticChoose!___Using_`
+
 * `choose a b h h' using hyp` takes a hypothesis `hyp` of the form
   `∀ (x : X) (y : Y), ∃ (a : A) (b : B), P x y a b ∧ Q x y a b`
   for some `P Q : X → Y → A → B → Prop` and outputs
@@ -777,6 +852,7 @@ example (h : ∀ i : ℕ, i < 7 → ∃ j, i < j ∧ j < i+i) : True := by
 
 # classical
 Defined in: `Std.Tactic.tacticClassical_`
+
 `classical tacs` runs `tacs` in a scope where `Classical.propDecidable` is a low priority
 local instance. It differs from `classical!` in that `classical!` uses a local variable,
 which has high priority:
@@ -796,6 +872,7 @@ scope of the tactic.
 
 # classical!
 Defined in: `Std.Tactic.classical!`
+
 `classical!` adds a proof of `Classical.propDecidable` as a local variable, which makes it
 available for instance search and effectively makes all propositions decidable.
 ```
@@ -808,32 +885,39 @@ Consider using `classical` instead if you want to use the decidable instance whe
 
 # clean
 Defined in: `Mathlib.Tactic.tacticClean_`
+
 (Deprecated) `clean t` is a macro for `exact clean% t`.
 
 # clear
 Defined in: `Lean.Elab.Tactic.clearExcept`
+
 Clears all hypotheses it can besides those provided
 
 # clear
 Defined in: `Lean.Parser.Tactic.clear`
+
 `clear x...` removes the given hypotheses, or fails if there are remaining
 references to a hypothesis.
 
 # clear!
 Defined in: `Mathlib.Tactic.clear!`
+
 A variant of `clear` which clears not only the given hypotheses but also any other hypotheses
 depending on them
 
 # clear_
 Defined in: `Mathlib.Tactic.clear_`
+
 Clear all hypotheses starting with `_`, like `_match` and `_let_match`.
 
 # clear_aux_decl
 Defined in: `Mathlib.Tactic.clearAuxDecl`
+
 This tactic clears all auxiliary declarations from the context.
 
 # clear_value
 Defined in: `Mathlib.Tactic.clearValue`
+
 `clear_value n₁ n₂ ...` clears the bodies of the local definitions `n₁, n₂ ...`, changing them
 into regular hypotheses. A hypothesis `n : α := t` is changed to `n : α`.
 
@@ -842,6 +926,7 @@ where they appear in the context.
 
 # coherence
 Defined in: `Mathlib.Tactic.Coherence.coherence`
+
 Use the coherence theorem for monoidal categories to solve equations in a monoidal equation,
 where the two sides only differ by replacing strings of monoidal structural morphisms
 (that is, associators, unitors, and identities)
@@ -857,6 +942,7 @@ using e.g. `set_option synthInstance.maxSize 500`.)
 
 # compareOfLessAndEq_rfl
 Defined in: `tacticCompareOfLessAndEq_rfl`
+
 This attempts to prove that a given instance of `compare` is equal to `compareOfLessAndEq` by
 introducing the arguments and trying the following approaches in order:
 
@@ -869,6 +955,7 @@ implicit arguments, requires us to unfold the defs and split the `if`s in the de
 
 # compute_degree
 Defined in: `Mathlib.Tactic.ComputeDegree.computeDegree`
+
 `compute_degree` is a tactic to solve goals of the form
 *  `natDegree f = d`,
 *  `degree f = d`,
@@ -887,6 +974,7 @@ Then it uses `norm_num` on all the whole remaining goals and tries `assumption`.
 
 # compute_degree!
 Defined in: `Mathlib.Tactic.ComputeDegree.tacticCompute_degree!`
+
 `compute_degree` is a tactic to solve goals of the form
 *  `natDegree f = d`,
 *  `degree f = d`,
@@ -905,6 +993,7 @@ Then it uses `norm_num` on all the whole remaining goals and tries `assumption`.
 
 # congr
 Defined in: `Std.Tactic.congrConfigWith`
+
 Apply congruence (recursively) to goals of the form `⊢ f as = f bs` and `⊢ HEq (f as) (f bs)`.
 * `congr n` controls the depth of the recursive applications.
   This is useful when `congr` is too aggressive in breaking down the goal.
@@ -918,6 +1007,7 @@ Apply congruence (recursively) to goals of the form `⊢ f as = f bs` and `⊢ H
 
 # congr
 Defined in: `Std.Tactic.congrConfig`
+
 Apply congruence (recursively) to goals of the form `⊢ f as = f bs` and `⊢ HEq (f as) (f bs)`.
 The optional parameter is the depth of the recursive applications.
 This is useful when `congr` is too aggressive in breaking down the goal.
@@ -927,6 +1017,7 @@ while `congr 2` produces the intended `⊢ x + y = y + x`.
 
 # congr
 Defined in: `Lean.Parser.Tactic.congr`
+
 Apply congruence (recursively) to goals of the form `⊢ f as = f bs` and `⊢ HEq (f as) (f bs)`.
 The optional parameter is the depth of the recursive applications.
 This is useful when `congr` is too aggressive in breaking down the goal.
@@ -936,6 +1027,7 @@ while `congr 2` produces the intended `⊢ x + y = y + x`.
 
 # congr!
 Defined in: `Congr!.congr!`
+
 Equates pieces of the left-hand side of a goal to corresponding pieces of the right-hand side by
 recursively applying congruence lemmas. For example, with `⊢ f as = g bs` we could get
 two goals `⊢ f = g` and `⊢ as = bs`.
@@ -1004,6 +1096,7 @@ See `Congr!.Config` for all options.
 
 # congrm
 Defined in: `Mathlib.Tactic.congrM`
+
 `congrm e` is a tactic for proving goals of the form `lhs = rhs`, `lhs ↔ rhs`, `HEq lhs rhs`,
 or `R lhs rhs` when `R` is a reflexive relation.
 The expression `e` is a pattern containing placeholders `?_`,
@@ -1040,16 +1133,19 @@ equality proofs into the congruence, just like for congruence quotations.
 
 # congrm?
 Defined in: `tacticCongrm?`
+
 Display a widget panel allowing to generate a `congrm` call with holes specified by selecting
 subexpressions in the goal.
 
 # constructor
 Defined in: `Lean.Parser.Tactic.constructor`
+
 If the main goal's target type is an inductive type, `constructor` solves it with
 the first matching constructor, or else fails.
 
 # constructorm
 Defined in: `Mathlib.Tactic.constructorM`
+
 * `constructorm p_1, ..., p_n` applies the `constructor` tactic to the main goal
   if `type` matches one of the given patterns.
 * `constructorm* p` is a more efficient and compact version of `· repeat constructorm p`.
@@ -1063,16 +1159,19 @@ constructorm* _ ∨ _, _ ∧ _, True
 
 # continuity
 Defined in: `tacticContinuity`
+
 The tactic `continuity` solves goals of the form `Continuous f` by applying lemmas tagged with the
 `continuity` user attribute.
 
 # continuity?
 Defined in: `tacticContinuity?`
+
 The tactic `continuity` solves goals of the form `Continuous f` by applying lemmas tagged with the
 `continuity` user attribute.
 
 # contradiction
 Defined in: `Lean.Parser.Tactic.contradiction`
+
 `contradiction` closes the main goal if its hypotheses are "trivially contradictory".
 - Inductive type/family with no applicable constructors
 ```lean
@@ -1097,6 +1196,7 @@ example (x : Nat) (h : x ≠ x) : p := by contradiction
 
 # contrapose
 Defined in: `Mathlib.Tactic.Contrapose.contrapose`
+
 Transforms the goal into its contrapositive.
 * `contrapose`     turns a goal `P → Q` into `¬ Q → ¬ P`
 * `contrapose h`   first reverts the local assumption `h`, and then uses `contrapose` and `intro h`
@@ -1104,11 +1204,13 @@ Transforms the goal into its contrapositive.
 
 # contrapose!
 Defined in: `Mathlib.Tactic.Contrapose.contrapose!`
+
 Transforms the goal into its contrapositive and uses pushes negations inside `P` and `Q`.
 Usage matches `contrapose`
 
 # conv
 Defined in: `Lean.Parser.Tactic.Conv.conv`
+
 `conv => ...` allows the user to perform targeted rewriting on a goal or hypothesis,
 by focusing on particular subexpressions.
 
@@ -1121,21 +1223,26 @@ Basic forms:
 
 # conv'
 Defined in: `Lean.Parser.Tactic.Conv.convTactic`
+
 Executes the given conv block without converting regular goal into a `conv` goal.
 
 # conv?
 Defined in: `tacticConv?`
+
 Display a widget panel allowing to generate a `conv` call zooming to the subexpression selected
 in the goal.
 
 # conv_lhs
 Defined in: `Mathlib.Tactic.Conv.convLHS`
 
+
 # conv_rhs
 Defined in: `Mathlib.Tactic.Conv.convRHS`
 
+
 # convert
 Defined in: `Mathlib.Tactic.convert`
+
 The `exact e` and `refine e` tactics require a term `e` whose type is
 definitionally equal to the goal. `convert e` is similar to `refine e`,
 but the type of `e` is not required to exactly match the
@@ -1199,6 +1306,7 @@ These are passed to `congr!`. See `Congr!.Config` for options.
 
 # convert_to
 Defined in: `Mathlib.Tactic.convertTo`
+
 `convert_to g using n` attempts to change the current goal to `g`, but unlike `change`,
 it will generate equality proof obligations using `congr! n` to resolve discrepancies.
 `convert_to g` defaults to using `congr! 1`.
@@ -1211,6 +1319,7 @@ The syntax for `convert_to` is the same as for `convert`, and it has variations 
 
 # dbg_trace
 Defined in: `Lean.Parser.Tactic.dbgTrace`
+
 `dbg_trace "foo"` prints `foo` when elaborated.
 Useful for debugging tactic control flow:
 ```
@@ -1222,6 +1331,7 @@ example : False ∨ True := by
 
 # decreasing_tactic
 Defined in: `tacticDecreasing_tactic`
+
 `decreasing_tactic` is called by default on well-founded recursions in order
 to synthesize a proof that recursive calls decrease along the selected
 well founded relation. It can be locally overridden by using `decreasing_by tac`
@@ -1231,6 +1341,7 @@ which this tactic calls).
 
 # decreasing_trivial
 Defined in: `tacticDecreasing_trivial`
+
 Extensible helper tactic for `decreasing_tactic`. This handles the "base case"
 reasoning after applying lexicographic order lemmas.
 It can be extended by adding more macro definitions, e.g.
@@ -1240,38 +1351,45 @@ macro_rules | `(tactic| decreasing_trivial) => `(tactic| linarith)
 
 # decreasing_with
 Defined in: `tacticDecreasing_with_`
+
 Constructs a proof of decreasing along a well founded relation, by applying
 lexicographic order lemmas and using `ts` to solve the base case. If it fails,
 it prints a message to help the user diagnose an ill-founded recursive definition.
 
 # delta
 Defined in: `Lean.Parser.Tactic.delta`
+
 `delta id1 id2 ...` delta-expands the definitions `id1`, `id2`, ....
 This is a low-level tactic, it will expose how recursive definitions have been
 compiled by Lean.
 
 # discrete_cases
 Defined in: `CategoryTheory.Discrete.tacticDiscrete_cases`
+
 A simple tactic to run `cases` on any `Discrete α` hypotheses.
 
 # done
 Defined in: `Lean.Parser.Tactic.done`
+
 `done` succeeds iff there are no remaining goals.
 
 # dsimp
 Defined in: `Lean.Parser.Tactic.dsimp`
+
 The `dsimp` tactic is the definitional simplifier. It is similar to `simp` but only
 applies theorems that hold by reflexivity. Thus, the result is guaranteed to be
 definitionally equal to the input.
 
 # dsimp!
 Defined in: `Lean.Parser.Tactic.dsimpAutoUnfold`
+
 `dsimp!` is shorthand for `dsimp` with `autoUnfold := true`.
 This will rewrite with all equation lemmas, which can be used to
 partially evaluate many definitions.
 
 # dsimp?
 Defined in: `Lean.Parser.Tactic.dsimpTrace`
+
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
@@ -1284,6 +1402,7 @@ This command can also be used in `simp_all` and `dsimp`.
 
 # dsimp?!
 Defined in: `Lean.Parser.Tactic.tacticDsimp?!_`
+
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
@@ -1296,6 +1415,7 @@ This command can also be used in `simp_all` and `dsimp`.
 
 # eapply
 Defined in: `Std.Tactic.tacticEapply_`
+
 `eapply e` is like `apply e` but it does not add subgoals for variables that appear
 in the types of other goals. Note that this can lead to a failure where there are
 no goals remaining but there are still metavariables in the term:
@@ -1309,6 +1429,7 @@ example (h : ∀ x : Nat, x = x → True) : True := by
 
 # econstructor
 Defined in: `tacticEconstructor`
+
 `econstructor` is like `constructor`
 (it calls `apply` using the first matching constructor of an inductive datatype)
 except only non-dependent premises are added as new goals.
@@ -1316,21 +1437,26 @@ except only non-dependent premises are added as new goals.
 # elementwise
 Defined in: `Tactic.Elementwise.tacticElementwise___`
 
+
 # elementwise!
 Defined in: `Tactic.Elementwise.tacticElementwise!___`
 
+
 # eq_refl
 Defined in: `Lean.Parser.Tactic.eqRefl`
+
 `eq_refl` is equivalent to `exact rfl`, but has a few optimizations.
 
 # erw
 Defined in: `Lean.Parser.Tactic.tacticErw__`
+
 `erw [rules]` is a shorthand for `rw (config := { transparency := .default }) [rules]`.
 This does rewriting up to unfolding of regular definitions (by comparison to regular `rw`
 which only unfolds `@[reducible]` definitions).
 
 # eta_expand
 Defined in: `Mathlib.Tactic.etaExpandStx`
+
 `eta_expand at loc` eta expands all sub-expressions at the given location.
 It also beta reduces any applications of eta expanded terms, so it puts it
 into an eta-expanded "normal form."
@@ -1343,6 +1469,7 @@ This can be useful to turn, for example, a raw `HAdd.hAdd` into `fun x y => x + 
 
 # eta_reduce
 Defined in: `Mathlib.Tactic.etaReduceStx`
+
 `eta_reduce at loc` eta reduces all sub-expressions at the given location.
 This also exists as a `conv`-mode tactic.
 
@@ -1350,6 +1477,7 @@ For example, `fun x y => f x y` becomes `f` after eta reduction.
 
 # eta_struct
 Defined in: `Mathlib.Tactic.etaStructStx`
+
 `eta_struct at loc` transforms structure constructor applications such as `S.mk x.1 ... x.n`
 (pretty printed as, for example, `{a := x.a, b := x.b, ...}`) into `x`.
 This also exists as a `conv`-mode tactic.
@@ -1361,10 +1489,12 @@ For example, given `x : α × β`, then `(x.1, x.2)` becomes `x` after this tran
 
 # exact
 Defined in: `Lean.Parser.Tactic.exact`
+
 `exact e` closes the main goal if its target type matches that of `e`.
 
 # exact?
 Defined in: `Lean.Parser.Tactic.exact?`
+
 Searches environment for definitions or theorems that can solve the goal using `exact`
 with conditions resolved by `solve_by_elim`.
 
@@ -1374,23 +1504,28 @@ ways to resolve the goal, and one wants to guide which lemma is used.
 
 # exact_mod_cast
 Defined in: `Lean.Parser.Tactic.tacticExact_mod_cast_`
+
 Normalize casts in the goal and the given expression, then close the goal with `exact`.
 
 # exacts
 Defined in: `Std.Tactic.exacts`
+
 Like `exact`, but takes a list of terms and checks that all goals are discharged after the tactic.
 
 # exfalso
 Defined in: `Lean.Parser.Tactic.tacticExfalso`
+
 `exfalso` converts a goal `⊢ tgt` into `⊢ False` by applying `False.elim`.
 
 # exists
 Defined in: `Lean.Parser.Tactic.«tacticExists_,,»`
+
 `exists e₁, e₂, ...` is shorthand for `refine ⟨e₁, e₂, ...⟩; try trivial`.
 It is useful for existential goals.
 
 # existsi
 Defined in: `Mathlib.Tactic.«tacticExistsi_,,»`
+
 `existsi e₁, e₂, ⋯` applies the tactic `refine ⟨e₁, e₂, ⋯, ?_⟩`. It's purpose is to instantiate
 existential quantifiers.
 
@@ -1408,6 +1543,7 @@ example : ∃ x : Nat, ∃ y : Nat, x = y := by
 
 # ext
 Defined in: `Lean.Elab.Tactic.Ext.ext`
+
 Applies extensionality lemmas that are registered with the `@[ext]` attribute.
 * `ext pat*` applies extensionality theorems as much as possible,
   using the patterns `pat*` to introduce the variables in extensionality theorems using `rintro`.
@@ -1423,6 +1559,7 @@ Patterns that don't match the variables will typically result in the introductio
 
 # ext1
 Defined in: `Lean.Elab.Tactic.Ext.tacticExt1___`
+
 `ext1 pat*` is like `ext pat*` except that it only applies a single extensionality theorem rather
 than recursively applying as many extensionality theorems as possible.
 
@@ -1431,6 +1568,7 @@ If no patterns are supplied, then variables are introduced anonymously using the
 
 # extract_goal
 Defined in: `Mathlib.Tactic.ExtractGoal.extractGoal`
+
 - `extract_goal` formats the current goal as a stand-alone theorem or definition after
   cleaning up the local context of irrelevant variables.
   A variable is *relevant* if (1) it occurs in the target type, (2) there is a relevant variable
@@ -1453,6 +1591,7 @@ For example, `set_option pp.all true in extract_goal` gives the `pp.all` form.
 
 # extract_lets
 Defined in: `Mathlib.extractLets`
+
 The `extract_lets at h` tactic takes a local hypothesis of the form `h : let x := v; b`
 and introduces a new local definition `x := v` while changing `h` to be `h : b`.  It can be thought
 of as being a `cases` tactic for `let` expressions. It can also be thought of as being like
@@ -1470,19 +1609,23 @@ form of `intros` on the goal that only introduces obvious `let`s.
 
 # fail
 Defined in: `Lean.Parser.Tactic.fail`
+
 `fail msg` is a tactic that always fails, and produces an error using the given message.
 
 # fail_if_no_progress
 Defined in: `Mathlib.Tactic.failIfNoProgress`
+
 `fail_if_no_progress tacs` evaluates `tacs`, and fails if no progress is made on the main goal
 or the local context at reducible transparency.
 
 # fail_if_success
 Defined in: `Lean.Parser.Tactic.failIfSuccess`
+
 `fail_if_success t` fails if the tactic `t` succeeds.
 
 # false_or_by_contra
 Defined in: `false_or_by_contra`
+
 Changes the goal to `False`, retaining as much information as possible:
 
 If the goal is `False`, do nothing.
@@ -1495,6 +1638,7 @@ For a non-propositional goal use `False.elim`.
 
 # false_or_by_contra
 Defined in: `Lean.Parser.Tactic.falseOrByContra`
+
 Changes the goal to `False`, retaining as much information as possible:
 
 * If the goal is `False`, do nothing.
@@ -1507,6 +1651,7 @@ Changes the goal to `False`, retaining as much information as possible:
 
 # false_or_by_contra
 Defined in: `tacticFalse_or_by_contra`
+
 Changes the goal to `False`, retaining as much information as possible:
 
 If the goal is `False`, do nothing.
@@ -1519,17 +1664,20 @@ For a non-propositional goal use `False.elim`.
 
 # fapply
 Defined in: `Std.Tactic.tacticFapply_`
+
 `fapply e` is like `apply e` but it adds goals in the order they appear,
 rather than putting the dependent goals first.
 
 # fconstructor
 Defined in: `tacticFconstructor`
+
 `fconstructor` is like `constructor`
 (it calls `apply` using the first matching constructor of an inductive datatype)
 except that it does not reorder goals.
 
 # field_simp
 Defined in: `Mathlib.Tactic.FieldSimp.fieldSimp`
+
 The goal of `field_simp` is to reduce an expression in a field to an expression of the form `n / d`
 where neither `n` nor `d` contains any division symbol, just using the simplifier (with a carefully
 crafted simpset named `field_simps`) to reduce the number of division symbols whenever possible by
@@ -1591,10 +1739,12 @@ entirely remove (numeric) division from the expression by multiplying by a facto
 
 # field_simp_discharge
 Defined in: `Mathlib.Tactic.FieldSimp.tacticField_simp_discharge`
+
 Discharge strategy for the `field_simp` tactic.
 
 # filter_upwards
 Defined in: `Mathlib.Tactic.filterUpwards`
+
 `filter_upwards [h₁, ⋯, hₙ]` replaces a goal of the form `s ∈ f` and terms
 `h₁ : t₁ ∈ f, ⋯, hₙ : tₙ ∈ f` with `∀ x, x ∈ t₁ → ⋯ → x ∈ tₙ → x ∈ s`.
 The list is an optional parameter, `[]` being its default value.
@@ -1610,6 +1760,7 @@ Note that in this case, the `aᵢ` terms can be used in `e`.
 
 # fin_cases
 Defined in: `Lean.Elab.Tactic.finCases`
+
 `fin_cases h` performs case analysis on a hypothesis of the form
 `h : A`, where `[Fintype A]` is available, or
 `h : a ∈ A`, where `A : Finset X`, `A : Multiset X` or `A : List X`.
@@ -1625,25 +1776,31 @@ after `fin_cases p; simp`, there are three goals, `f 0`, `f 1`, and `f 2`.
 # find
 Defined in: `Mathlib.Tactic.Find.tacticFind`
 
+
 # first
 Defined in: `Lean.Parser.Tactic.first`
+
 `first | tac | ...` runs each `tac` until one succeeds, or else fails.
 
 # focus
 Defined in: `Lean.Parser.Tactic.focus`
+
 `focus tac` focuses on the main goal, suppressing all other goals, and runs `tac` on it.
 Usually `· tac`, which enforces that the goal is closed by `tac`, should be preferred.
 
 # frac_tac
 Defined in: `RatFunc.tacticFrac_tac`
+
 Solve equations for `RatFunc K` by working in `FractionRing K[X]`.
 
 # fun_prop
 Defined in: `Mathlib.Meta.FunProp.funPropTacStx`
+
 Tactic to prove function properties
 
 # funext
 Defined in: `tacticFunext___`
+
 Apply function extensionality and introduce new hypotheses.
 The tactic `funext` will keep applying the `funext` lemma until the goal target is not reducible to
 ```
@@ -1658,6 +1815,7 @@ Patterns can be used like in the `intro` tactic. Example, given a goal
 
 # gcongr
 Defined in: `Mathlib.Tactic.GCongr.tacticGcongr__With__`
+
 The `gcongr` tactic applies "generalized congruence" rules, reducing a relational goal
 between a LHS and RHS matching the same pattern to relational subgoals between the differing
 inputs to the pattern.  For example,
@@ -1697,14 +1855,17 @@ in this way are left for the user.
 
 # gcongr?
 Defined in: `tacticGcongr?`
+
 Display a widget panel allowing to generate a `gcongr` call with holes specified by selecting
 subexpressions in the goal.
 
 # gcongr_discharger
 Defined in: `Mathlib.Tactic.GCongr.tacticGcongr_discharger`
 
+
 # generalize
 Defined in: `Lean.Parser.Tactic.generalize`
+
 * `generalize ([h :] e = x),+` replaces all occurrences `e`s in the main goal
   with a fresh hypothesis `x`s. If `h` is given, `h : e = x` is introduced as well.
 * `generalize e = x at h₁ ... hₙ` also generalizes occurrences of `e`
@@ -1713,10 +1874,12 @@ Defined in: `Lean.Parser.Tactic.generalize`
 
 # generalize'
 Defined in: `«tacticGeneralize'_:_=_»`
+
 Backwards compatibility shim for `generalize`.
 
 # generalize_proofs
 Defined in: `Mathlib.Tactic.GeneralizeProofs.generalizeProofs`
+
 Generalize proofs in the goal, naming them with the provided list.
 
 For example:
@@ -1730,6 +1893,7 @@ example : List.nthLe [1, 2] 1 dec_trivial = 2 := by
 
 # get_elem_tactic
 Defined in: `tacticGet_elem_tactic`
+
 `get_elem_tactic` is the tactic automatically called by the notation `arr[i]`
 to prove any side conditions that arise when constructing the term
 (e.g. the index is in bounds of the array). It just delegates to
@@ -1738,6 +1902,7 @@ users are encouraged to extend `get_elem_tactic_trivial` instead of this tactic.
 
 # get_elem_tactic_trivial
 Defined in: `tacticGet_elem_tactic_trivial`
+
 `get_elem_tactic_trivial` is an extensible tactic automatically called
 by the notation `arr[i]` to prove any side conditions that arise when
 constructing the term (e.g. the index is in bounds of the array).
@@ -1747,6 +1912,7 @@ where `i < arr.size` is in the context) and `simp_arith` and `omega`
 
 # group
 Defined in: `Mathlib.Tactic.Group.group`
+
 Tactic for normalizing expressions in multiplicative groups, without assuming
 commutativity, using only the group axioms without any information about which group
 is manipulated.
@@ -1763,6 +1929,7 @@ example {G : Type} [Group G] (a b c d : G) (h : c = (a*b^2)*((b*b)⁻¹*a⁻¹)*
 
 # guard_expr
 Defined in: `Lean.Parser.Tactic.guardExpr`
+
 Tactic to check equality of two expressions.
 * `guard_expr e = e'` checks that `e` and `e'` are defeq at reducible transparency.
 * `guard_expr e =~ e'` checks that `e` and `e'` are defeq at default transparency.
@@ -1775,10 +1942,12 @@ processed, which helps with default instance handling.
 
 # guard_goal_nums
 Defined in: `guardGoalNums`
+
 `guard_goal_nums n` succeeds if there are exactly `n` goals and fails otherwise.
 
 # guard_hyp
 Defined in: `Lean.Parser.Tactic.guardHyp`
+
 Tactic to check that a named hypothesis has a given type and/or value.
 
 * `guard_hyp h : t` checks the type up to reducible defeq,
@@ -1794,6 +1963,7 @@ The value `v` is elaborated using the type of `h` as the expected type.
 
 # guard_hyp_nums
 Defined in: `guardHypNums`
+
 `guard_hyp_nums n` succeeds if there are exactly `n` hypotheses and fails otherwise.
 
 Note that, depending on what options are set, some hypotheses in the local context might
@@ -1802,6 +1972,7 @@ not the number of visible hypotheses.
 
 # guard_target
 Defined in: `Lean.Parser.Tactic.guardTarget`
+
 Tactic to check that the target agrees with a given expression.
 * `guard_target = e` checks that the target is defeq at reducible transparency to `e`.
 * `guard_target =~ e` checks that the target is defeq at default transparency to `e`.
@@ -1813,6 +1984,7 @@ useful within `conv` mode.
 
 # have
 Defined in: `Lean.Parser.Tactic.tacticHave_`
+
 The `have` tactic is for adding hypotheses to the local context of the main goal.
 * `have h : t := e` adds the hypothesis `h : t` if `e` is a term of type `t`.
 * `have h := e` uses the type of `e` for `t`.
@@ -1826,8 +1998,10 @@ The `have` tactic is for adding hypotheses to the local context of the main goal
 # have
 Defined in: `Mathlib.Tactic.tacticHave_`
 
+
 # have!?
 Defined in: `Mathlib.Tactic.Propose.«tacticHave!?:_Using__»`
+
 * `have? using a, b, c` tries to find a lemma
 which makes use of each of the local hypotheses `a, b, c`,
 and reports any results via trace messages.
@@ -1843,14 +2017,17 @@ Suggestions are printed as `have := f a b c`.
 
 # have'
 Defined in: `Lean.Parser.Tactic.tacticHave'_`
+
 Similar to `have`, but using `refine'`
 
 # have'
 Defined in: `Lean.Parser.Tactic.«tacticHave'_:=_»`
+
 Similar to `have`, but using `refine'`
 
 # have?
 Defined in: `Mathlib.Tactic.Propose.propose'`
+
 * `have? using a, b, c` tries to find a lemma
 which makes use of each of the local hypotheses `a, b, c`,
 and reports any results via trace messages.
@@ -1866,6 +2043,7 @@ Suggestions are printed as `have := f a b c`.
 
 # have?!
 Defined in: `Mathlib.Tactic.Propose.«tacticHave?!:_Using__»`
+
 * `have? using a, b, c` tries to find a lemma
 which makes use of each of the local hypotheses `a, b, c`,
 and reports any results via trace messages.
@@ -1881,15 +2059,18 @@ Suggestions are printed as `have := f a b c`.
 
 # haveI
 Defined in: `Lean.Parser.Tactic.tacticHaveI_`
+
 `haveI` behaves like `have`, but inlines the value instead of producing a `let_fun` term.
 
 # hint
 Defined in: `Mathlib.Tactic.Hint.hintStx`
+
 The `hint` tactic tries every tactic registered using `register_hint tac`,
 and reports any that succeed.
 
 # induction
 Defined in: `Lean.Parser.Tactic.induction`
+
 Assuming `x` is a variable in the local context with an inductive type,
 `induction x` applies induction on `x` to the main goal,
 producing one goal for each constructor of the inductive type,
@@ -1918,23 +2099,28 @@ You can use `with` to provide the variables names for each constructor.
 # induction'
 Defined in: `Mathlib.Tactic.induction'`
 
+
 # infer_instance
 Defined in: `Lean.Parser.Tactic.tacticInfer_instance`
+
 `infer_instance` is an abbreviation for `exact inferInstance`.
 It synthesizes a value of any target type by typeclass inference.
 
 # infer_param
 Defined in: `Mathlib.Tactic.inferOptParam`
+
 Close a goal of the form `optParam α a` or `autoParam α stx` by using `a`.
 
 # inhabit
 Defined in: `Lean.Elab.Tactic.inhabit`
+
 `inhabit α` tries to derive a `Nonempty α` instance and
 then uses it to make an `Inhabited α` instance.
 If the target is a `Prop`, this is done constructively. Otherwise, it uses `Classical.choice`.
 
 # injection
 Defined in: `Lean.Parser.Tactic.injection`
+
 The `injection` tactic is based on the fact that constructors of inductive data
 types are injections.
 That means that if `c` is a constructor of an inductive datatype, and if `(c t₁)`
@@ -1949,12 +2135,14 @@ The tactic `injection h with h₁ h₂` uses the names `h₁` and `h₂` to name
 
 # injections
 Defined in: `Lean.Parser.Tactic.injections`
+
 `injections` applies `injection` to all hypotheses recursively
 (since `injection` can produce new hypotheses). Useful for destructing nested
 constructor equalities like `(a::b::c) = (d::e::f)`.
 
 # interval_cases
 Defined in: `Mathlib.Tactic.intervalCases`
+
 `interval_cases n` searches for upper and lower bounds on a variable `n`,
 and if bounds are found,
 splits into separate cases for each possible value of `n`.
@@ -1977,6 +2165,7 @@ as `interval_cases h : n` or `interval_cases h : n using hl, hu`.
 
 # intro
 Defined in: `Lean.Parser.Tactic.intro`
+
 Introduces one or more hypotheses, optionally naming and/or pattern-matching them.
 For each hypothesis to be introduced, the remaining main goal's target type must
 be a `let` or function type.
@@ -1999,10 +2188,12 @@ be a `let` or function type.
 
 # intro
 Defined in: `Std.Tactic.introDot`
+
 The syntax `intro.` is deprecated in favor of `nofun`.
 
 # intros
 Defined in: `Lean.Parser.Tactic.intros`
+
 Introduces zero or more hypotheses, optionally naming them.
 
 - `intros` is equivalent to repeatedly applying `intro`
@@ -2075,6 +2266,7 @@ example : let n := 1; let k := 2; n + k = 3 := by
 
 # introv
 Defined in: `Mathlib.Tactic.introv`
+
 The tactic `introv` allows the user to automatically introduce the variables of a theorem and
 explicitly name the non-dependent hypotheses.
 Any dependent hypotheses are assigned their default names.
@@ -2108,6 +2300,7 @@ h₂ : b = c
 
 # isBoundedDefault
 Defined in: `Filter.tacticIsBoundedDefault`
+
 Filters are automatically bounded or cobounded in complete lattices. To use the same statements
 in complete and conditionally complete lattices but let automation fill automatically the
 boundedness proofs in complete lattices, we use the tactic `isBoundedDefault` in the statements,
@@ -2115,6 +2308,7 @@ in the form `(hf : f.IsBounded (≥) := by isBoundedDefault)`.
 
 # iterate
 Defined in: `Lean.Parser.Tactic.tacticIterate____`
+
 `iterate n tac` runs `tac` exactly `n` times.
 `iterate tac` runs `tac` repeatedly until failure.
 
@@ -2129,6 +2323,7 @@ iterate n
 
 # left
 Defined in: `Lean.Parser.Tactic.left`
+
 Applies the second constructor when
 the goal is an inductive type with exactly two constructors, or fails otherwise.
 ```
@@ -2139,14 +2334,17 @@ example : True ∨ False := by
 
 # let
 Defined in: `Lean.Parser.Tactic.letrec`
+
 `let rec f : t := e` adds a recursive definition `f` to the current goal.
 The syntax is the same as term-mode `let rec`.
 
 # let
 Defined in: `Mathlib.Tactic.tacticLet_`
 
+
 # let
 Defined in: `Lean.Parser.Tactic.tacticLet_`
+
 The `let` tactic is for adding definitions to the local context of the main goal.
 * `let x : t := e` adds the definition `x : t := e` if `e` is a term of type `t`.
 * `let x := e` uses the type of `e` for `t`.
@@ -2159,14 +2357,17 @@ The `let` tactic is for adding definitions to the local context of the main goal
 
 # let'
 Defined in: `Lean.Parser.Tactic.tacticLet'_`
+
 Similar to `let`, but using `refine'`
 
 # letI
 Defined in: `Lean.Parser.Tactic.tacticLetI_`
+
 `letI` behaves like `let`, but inlines the value instead of producing a `let_fun` term.
 
 # lift
 Defined in: `Mathlib.Tactic.lift`
+
 Lift an expression to another type.
 * Usage: `'lift' expr 'to' expr ('using' expr)? ('with' id (id id?)?)?`.
 * If `n : ℤ` and `hn : n ≥ 0` then the tactic `lift n to ℕ using hn` creates a new
@@ -2207,6 +2408,7 @@ subtype) to propositions about `ℤ` (the supertype), without changing the type 
 
 # lift_lets
 Defined in: `Mathlib.Tactic.lift_lets`
+
 Lift all the `let` bindings in the type of an expression as far out as possible.
 
 When applied to the main goal, this gives one the ability to `intro` embedded `let` expressions.
@@ -2223,6 +2425,7 @@ During the lifting process, let bindings are merged if they have the same type a
 
 # liftable_prefixes
 Defined in: `Mathlib.Tactic.Coherence.liftable_prefixes`
+
 Internal tactic used in `coherence`.
 
 Rewrites an equation `f = g` as `f₀ ≫ f₁ = g₀ ≫ g₁`,
@@ -2231,6 +2434,7 @@ which are "liftable" (i.e. expressible as compositions of unitors and associator
 
 # linarith
 Defined in: `linarith`
+
 `linarith` attempts to find a contradiction between hypotheses that are linear (in)equalities.
 Equivalently, it can prove a linear inequality by assuming its negation and proving `False`.
 
@@ -2290,6 +2494,7 @@ routine.
 
 # linarith!
 Defined in: `tacticLinarith!_`
+
 `linarith` attempts to find a contradiction between hypotheses that are linear (in)equalities.
 Equivalently, it can prove a linear inequality by assuming its negation and proving `False`.
 
@@ -2349,6 +2554,7 @@ routine.
 
 # linear_combination
 Defined in: `Mathlib.Tactic.LinearCombination.linearCombination`
+
 `linear_combination` attempts to simplify the target by creating a linear combination
   of a list of equalities and subtracting it from the target.
   The tactic will create a linear
@@ -2421,6 +2627,7 @@ example (a b : ℚ) (h : ∀ p q : ℚ, p = q) : 3*a + qc = 3*b + 2*qc := by
 
 # linear_combination2
 Defined in: `Mathlib.Tactic.LinearCombination.tacticLinear_combination2____`
+
 `linear_combination` attempts to simplify the target by creating a linear combination
   of a list of equalities and subtracting it from the target.
   The tactic will create a linear
@@ -2493,11 +2700,13 @@ example (a b : ℚ) (h : ∀ p q : ℚ, p = q) : 3*a + qc = 3*b + 2*qc := by
 
 # map_tacs
 Defined in: `Std.Tactic.«tacticMap_tacs[_;]»`
+
 Assuming there are `n` goals, `map_tacs [t1; t2; ...; tn]` applies each `ti` to the respective
 goal and leaves the resulting subgoals.
 
 # match
 Defined in: `Std.Tactic.«tacticMatch_,,With.»`
+
 The syntax `match ⋯ with.` has been deprecated in favor of `nomatch ⋯`.
 
 Both now support multiple discriminants.
@@ -2505,8 +2714,10 @@ Both now support multiple discriminants.
 # match_target
 Defined in: `Mathlib.Tactic.tacticMatch_target_`
 
+
 # measurability
 Defined in: `tacticMeasurability_`
+
 The tactic `measurability` solves goals of the form `Measurable f`, `AEMeasurable f`,
 `StronglyMeasurable f`, `AEStronglyMeasurable f μ`, or `MeasurableSet s` by applying lemmas tagged
 with the `measurability` user attribute.
@@ -2514,11 +2725,14 @@ with the `measurability` user attribute.
 # measurability!
 Defined in: `measurability!`
 
+
 # measurability!?
 Defined in: `measurability!?`
 
+
 # measurability?
 Defined in: `tacticMeasurability?_`
+
 The tactic `measurability?` solves goals of the form `Measurable f`, `AEMeasurable f`,
 `StronglyMeasurable f`, `AEStronglyMeasurable f μ`, or `MeasurableSet s` by applying lemmas tagged
 with the `measurability` user attribute, and suggests a faster proof script that can be substituted
@@ -2526,11 +2740,13 @@ for the tactic call in case of success.
 
 # mfld_set_tac
 Defined in: `Tactic.MfldSetTac.mfldSetTac`
+
 A very basic tactic to show that sets showing up in manifolds coincide or are included
 in one another.
 
 # mod_cases
 Defined in: `Mathlib.Tactic.ModCases.«tacticMod_cases_:_%_»`
+
 * The tactic `mod_cases h : e % 3` will perform a case disjunction on `e`.
   If `e : ℤ`, then it will yield subgoals containing the assumptions
   `h : e ≡ 0 [ZMOD 3]`, `h : e ≡ 1 [ZMOD 3]`, `h : e ≡ 2 [ZMOD 3]`
@@ -2542,6 +2758,7 @@ Defined in: `Mathlib.Tactic.ModCases.«tacticMod_cases_:_%_»`
 
 # monicity
 Defined in: `Mathlib.Tactic.ComputeDegree.monicityMacro`
+
 `monicity` tries to solve a goal of the form `Monic f`.
 It converts the goal into a goal of the form `natDegree f ≤ n` and one of the form `f.coeff n = 1`
 and calls `compute_degree` on those two goals.
@@ -2550,6 +2767,7 @@ The variant `monicity!` starts like `monicity`, but calls `compute_degree!` on t
 
 # monicity!
 Defined in: `Mathlib.Tactic.ComputeDegree.tacticMonicity!`
+
 `monicity` tries to solve a goal of the form `Monic f`.
 It converts the goal into a goal of the form `natDegree f ≤ n` and one of the form `f.coeff n = 1`
 and calls `compute_degree` on those two goals.
@@ -2558,6 +2776,7 @@ The variant `monicity!` starts like `monicity`, but calls `compute_degree!` on t
 
 # mono
 Defined in: `Mathlib.Tactic.Monotonicity.mono`
+
 `mono` applies monotonicity rules and local hypotheses repetitively.  For example,
 ```lean
 example (x y z k : ℤ)
@@ -2569,15 +2788,18 @@ example (x y z k : ℤ)
 
 # monoidal_coherence
 Defined in: `Mathlib.Tactic.Coherence.tacticMonoidal_coherence`
+
 Coherence tactic for monoidal categories.
 Use `pure_coherence` instead, which is a frontend to this one.
 
 # monoidal_simps
 Defined in: `Mathlib.Tactic.Coherence.monoidal_simps`
+
 Simp lemmas for rewriting a hom in monoical categories into a normal form.
 
 # move_add
 Defined in: `Mathlib.MoveAdd.tacticMove_add_`
+
 The tactic `move_add` rearranges summands of expressions.
 Calling `move_add [a, ← b, ...]` matches `a, b,...` with summands in the main goal.
 It then moves `a` to the far right and `b` to the far left of each addition in which they appear.
@@ -2595,6 +2817,7 @@ rearranges `max`s.
 
 # move_mul
 Defined in: `Mathlib.MoveAdd.tacticMove_mul_`
+
 The tactic `move_add` rearranges summands of expressions.
 Calling `move_add [a, ← b, ...]` matches `a, b,...` with summands in the main goal.
 It then moves `a` to the far right and `b` to the far left of each addition in which they appear.
@@ -2612,6 +2835,7 @@ rearranges `max`s.
 
 # move_oper
 Defined in: `Mathlib.MoveAdd.moveOperTac`
+
 The tactic `move_add` rearranges summands of expressions.
 Calling `move_add [a, ← b, ...]` matches `a, b,...` with summands in the main goal.
 It then moves `a` to the far right and `b` to the far left of each addition in which they appear.
@@ -2629,12 +2853,14 @@ rearranges `max`s.
 
 # next
 Defined in: `Lean.Parser.Tactic.«tacticNext_=>_»`
+
 `next => tac` focuses on the next goal and solves it using `tac`, or else fails.
 `next x₁ ... xₙ => tac` additionally renames the `n` most recent hypotheses with
 inaccessible names to the given names.
 
 # nlinarith
 Defined in: `nlinarith`
+
 An extension of `linarith` with some preprocessing to allow it to solve some nonlinear arithmetic
 problems. (Based on Coq's `nra` tactic.) See `linarith` for the available syntax of options,
 which are inherited by `nlinarith`; that is, `nlinarith!` and `nlinarith only [h1, h2]` all work as
@@ -2648,6 +2874,7 @@ in `linarith`. The preprocessing is as follows:
 
 # nlinarith!
 Defined in: `tacticNlinarith!_`
+
 An extension of `linarith` with some preprocessing to allow it to solve some nonlinear arithmetic
 problems. (Based on Coq's `nra` tactic.) See `linarith` for the available syntax of options,
 which are inherited by `nlinarith`; that is, `nlinarith!` and `nlinarith only [h1, h2]` all work as
@@ -2661,15 +2888,18 @@ in `linarith`. The preprocessing is as follows:
 
 # nofun
 Defined in: `Lean.Parser.Tactic.tacticNofun`
+
 The tactic `nofun` is shorthand for `exact nofun`: it introduces the assumptions, then performs an
 empty pattern match, closing the goal if the introduced pattern is impossible.
 
 # nomatch
 Defined in: `Lean.Parser.Tactic.«tacticNomatch_,,»`
+
 The tactic `nomatch h` is shorthand for `exact nomatch h`.
 
 # noncomm_ring
 Defined in: `Mathlib.Tactic.NoncommRing.noncomm_ring`
+
 A tactic for simplifying identities in not-necessarily-commutative rings.
 
 An example:
@@ -2682,6 +2912,7 @@ You can use `noncomm_ring [h]` to also simplify using `h`.
 
 # nontriviality
 Defined in: `Mathlib.Tactic.Nontriviality.nontriviality`
+
 Attempts to generate a `Nontrivial α` hypothesis.
 
 The tactic first looks for an instance using `infer_instance`.
@@ -2726,6 +2957,7 @@ example {α : Type} (a b : α) (h : a = b) : myeq a b := by
 
 # norm_cast
 Defined in: `Lean.Parser.Tactic.tacticNorm_cast_`
+
 The `norm_cast` family of tactics is used to normalize casts inside expressions.
 It is basically a `simp` tactic with a specific set of lemmas to move casts
 upwards in the expression.
@@ -2759,10 +2991,12 @@ See also `push_cast`, which moves casts inwards rather than lifting them outward
 
 # norm_cast0
 Defined in: `Lean.Parser.Tactic.normCast0`
+
 Implementation of `norm_cast` (the full `norm_cast` calls `trivial` afterwards).
 
 # norm_num
 Defined in: `Mathlib.Tactic.normNum`
+
 Normalize numerical expressions. Supports the operations `+` `-` `*` `/` `⁻¹` `^` and `%`
 over numerical types such as `ℕ`, `ℤ`, `ℚ`, `ℝ`, `ℂ` and some general algebraic types,
 and can prove goals of the form `A = B`, `A ≠ B`, `A < B` and `A ≤ B`, where `A` and `B` are
@@ -2770,10 +3004,12 @@ numerical expressions. It also has a relatively simple primality prover.
 
 # norm_num1
 Defined in: `Mathlib.Tactic.normNum1`
+
 Basic version of `norm_num` that does not call `simp`.
 
 # nth_rewrite
 Defined in: `Mathlib.Tactic.nthRewriteSeq`
+
 `nth_rewrite` is a variant of `rewrite` that only changes the nth occurrence of the expression
 to be rewritten.
 
@@ -2782,10 +3018,12 @@ mathlib3. The translation will be handled by mathport.
 
 # nth_rw
 Defined in: `Mathlib.Tactic.nthRwSeq`
+
 `nth_rw` is like `nth_rewrite`, but also tries to close the goal by trying `rfl` afterwards.
 
 # observe
 Defined in: `Mathlib.Tactic.LibrarySearch.observe`
+
 `observe hp : p` asserts the proposition `p`, and tries to prove it using `exact?`.
 If no proof is found, the tactic fails.
 In other words, this tactic is equivalent to `have hp : p := by exact?`.
@@ -2797,6 +3035,7 @@ This may be particularly useful to speed up proofs.
 
 # observe?
 Defined in: `Mathlib.Tactic.LibrarySearch.«tacticObserve?__:_Using__,,»`
+
 `observe hp : p` asserts the proposition `p`, and tries to prove it using `exact?`.
 If no proof is found, the tactic fails.
 In other words, this tactic is equivalent to `have hp : p := by exact?`.
@@ -2808,6 +3047,7 @@ This may be particularly useful to speed up proofs.
 
 # observe?
 Defined in: `Mathlib.Tactic.LibrarySearch.«tacticObserve?__:_»`
+
 `observe hp : p` asserts the proposition `p`, and tries to prove it using `exact?`.
 If no proof is found, the tactic fails.
 In other words, this tactic is equivalent to `have hp : p := by exact?`.
@@ -2819,6 +3059,7 @@ This may be particularly useful to speed up proofs.
 
 # obtain
 Defined in: `Lean.Parser.Tactic.obtain`
+
 The `obtain` tactic is a combination of `have` and `rcases`. See `rcases` for
 a description of supported patterns.
 
@@ -2837,6 +3078,7 @@ If `type` is omitted, `:= proof` is required.
 
 # omega
 Defined in: `Lean.Parser.Tactic.omega`
+
 The `omega` tactic, for resolving integer and natural linear arithmetic problems.
 
 It is not yet a full decision procedure (no "dark" or "grey" shadows),
@@ -2869,6 +3111,7 @@ Currently, all of these are on by default.
 
 # on_goal
 Defined in: `Std.Tactic.«tacticOn_goal-_=>_»`
+
 `on_goal n => tacSeq` creates a block scope for the `n`-th goal and tries the sequence
 of tactics `tacSeq` on it.
 
@@ -2880,6 +3123,7 @@ list of goals, replacing the chosen goal.
 
 # peel
 Defined in: `Mathlib.Tactic.Peel.peel`
+
 Peels matching quantifiers off of a given term and the goal and introduces the relevant variables.
 
 - `peel e` peels all quantifiers (at reducible transparency),
@@ -2937,6 +3181,7 @@ This tactic works by repeatedly applying lemmas such as `forall_imp`, `Exists.im
 
 # pick_goal
 Defined in: `Std.Tactic.«tacticPick_goal-_»`
+
 `pick_goal n` will move the `n`-th goal to the front.
 
 `pick_goal -n` will move the `n`-th goal (counting from the bottom) to the front.
@@ -2945,6 +3190,7 @@ See also `Tactic.rotate_goals`, which moves goals from the front to the back and
 
 # polyrith
 Defined in: `Mathlib.Tactic.Polyrith.«tacticPolyrithOnly[_]»`
+
 Attempts to prove polynomial equality goals through polynomial arithmetic
 on the hypotheses (and additional proof terms if the user specifies them).
 It proves the goal by generating an appropriate call to the tactic
@@ -2985,6 +3231,7 @@ by polyrith only [scary c d, h]
 
 # positivity
 Defined in: `Mathlib.Tactic.Positivity.positivity`
+
 Tactic solving goals of the form `0 ≤ x`, `0 < x` and `x ≠ 0`.  The tactic works recursively
 according to the syntax of the expression `x`, if the atoms composing the expression all have
 numeric lower bounds which can be proved positive/nonnegative/nonzero by `norm_num`.  This tactic
@@ -3001,6 +3248,7 @@ example {b : ℤ} : 0 ≤ max (-3) (b ^ 2) := by positivity
 
 # pure_coherence
 Defined in: `Mathlib.Tactic.Coherence.pure_coherence`
+
 `pure_coherence` uses the coherence theorem for monoidal categories to prove the goal.
 It can prove any equality made up only of associators, unitors, and identities.
 ```lean
@@ -3016,6 +3264,7 @@ where `a = a'`, `b = b'`, and `c = c'` can be proved using `pure_coherence`
 
 # push_cast
 Defined in: `Lean.Parser.Tactic.pushCast`
+
 `push_cast` rewrites the goal to move casts inward, toward the leaf nodes.
 This uses `norm_cast` lemmas in the forward direction.
 For example, `↑(a + b)` will be written to `↑a + ↑b`.
@@ -3035,6 +3284,7 @@ end
 
 # push_neg
 Defined in: `Mathlib.Tactic.PushNeg.tacticPush_neg_`
+
 Push negations into the conclusion of a hypothesis.
 For instance, a hypothesis `h : ¬ ∀ x, ∃ y, x ≤ y` will be transformed by `push_neg at h` into
 `h : ∃ x, ∀ y, y < x`. Variable names are conserved.
@@ -3059,6 +3309,7 @@ distrib mode it produces `¬p ∨ ¬q`. To use distrib mode, use `set_option pus
 
 # qify
 Defined in: `Mathlib.Tactic.Qify.qify`
+
 The `qify` tactic is used to shift propositions from `ℕ` or `ℤ` to `ℚ`.
 This is often useful since `ℚ` has well-behaved division.
 ```
@@ -3083,6 +3334,7 @@ and the `push_cast` tactic to simplify the `ℚ`-valued expressions.
 
 # rcases
 Defined in: `Lean.Parser.Tactic.rcases`
+
 `rcases` is a tactic that will perform `cases` recursively, according to a pattern. It is used to
 destructure hypotheses or expressions composed of inductive types like `h1 : a ∧ b ∧ c ∨ d` or
 `h2 : ∃ x y, trans_rel R x y`. Usual usage might be `rcases h1 with ⟨ha, hb, hc⟩ | hd` or
@@ -3127,6 +3379,7 @@ assumption `h : e = PAT` will be added to the context.
 
 # rcongr
 Defined in: `Std.Tactic.rcongr`
+
 Repeatedly apply `congr` and `ext`, using the given patterns as arguments for `ext`.
 
 There are two ways this tactic stops:
@@ -3155,12 +3408,14 @@ x : α ⊢ f x + 3 = g x + 3
 
 # recover
 Defined in: `Mathlib.Tactic.tacticRecover_`
+
 Modifier `recover` for a tactic (sequence) to debug cases where goals are closed incorrectly.
 The tactic `recover tacs` for a tactic (sequence) tacs applies the tactics and then adds goals
 that are not closed starting from the original
 
 # reduce
 Defined in: `Mathlib.Tactic.tacticReduce__`
+
 `reduce at loc` completely reduces the given location.
 This also exists as a `conv`-mode tactic.
 
@@ -3168,6 +3423,7 @@ This does the same transformation as the `#reduce` command.
 
 # reduce_mod_char
 Defined in: `Tactic.ReduceModChar.reduce_mod_char`
+
 The tactic `reduce_mod_char` looks for numeric expressions in characteristic `p`
 and reduces these to lie between `0` and `p`.
 
@@ -3185,26 +3441,31 @@ characteristic, for improved performance compared to trying to synthesise a `Cha
 
 # refine
 Defined in: `Lean.Parser.Tactic.refine`
+
 `refine e` behaves like `exact e`, except that named (`?x`) or unnamed (`?_`)
 holes in `e` that are not solved by unification with the main goal's target type
 are converted into new goals, using the hole's name, if any, as the goal case name.
 
 # refine'
 Defined in: `Lean.Parser.Tactic.refine'`
+
 `refine' e` behaves like `refine e`, except that unsolved placeholders (`_`)
 and implicit parameters are also converted into new goals.
 
 # refine_lift
 Defined in: `Lean.Parser.Tactic.tacticRefine_lift_`
+
 Auxiliary macro for lifting have/suffices/let/...
 It makes sure the "continuation" `?_` is the main goal after refining.
 
 # refine_lift'
 Defined in: `Lean.Parser.Tactic.tacticRefine_lift'_`
+
 Similar to `refine_lift`, but using `refine'`
 
 # rel
 Defined in: `Mathlib.Tactic.GCongr.«tacticRel[_]»`
+
 The `rel` tactic applies "generalized congruence" rules to solve a relational goal by
 "substitution".  For example,
 ```
@@ -3230,17 +3491,20 @@ be discharged in this way, the tactic fails.
 
 # rename
 Defined in: `Lean.Parser.Tactic.rename`
+
 `rename t => x` renames the most recent hypothesis whose type matches `t`
 (which may contain placeholders) to `x`, or fails if no such hypothesis could be found.
 
 # rename'
 Defined in: `Mathlib.Tactic.rename'`
+
 `rename' h => hnew` renames the hypothesis named `h` to `hnew`.
 To rename several hypothesis, use `rename' h₁ => h₁new, h₂ => h₂new`.
 You can use `rename' a => b, b => a` to swap two variables.
 
 # rename_bvar
 Defined in: `Mathlib.Tactic.«tacticRename_bvar_→__»`
+
 * `rename_bvar old new` renames all bound variables named `old` to `new` in the target.
 * `rename_bvar old new at h` does the same in hypothesis `h`.
 
@@ -3254,31 +3518,37 @@ Note: name clashes are resolved automatically.
 
 # rename_i
 Defined in: `Lean.Parser.Tactic.renameI`
+
 `rename_i x_1 ... x_n` renames the last `n` inaccessible names using the given names.
 
 # repeat
 Defined in: `Lean.Parser.Tactic.tacticRepeat_`
+
 `repeat tac` repeatedly applies `tac` to the main goal until it fails.
 That is, if `tac` produces multiple subgoals, only subgoals up to the first failure will be visited.
 The `Std` library provides `repeat'` which repeats separately in each subgoal.
 
 # repeat'
 Defined in: `Lean.Parser.Tactic.repeat'`
+
 `repeat' tac` runs `tac` on all of the goals to produce a new list of goals,
 then runs `tac` again on all of those goals, and repeats until `tac` fails on all remaining goals.
 
 # repeat1
 Defined in: `Mathlib.Tactic.tacticRepeat1_`
+
 `repeat1 tac` applies `tac` to main goal at least once. If the application succeeds,
 the tactic is applied recursively to the generated subgoals until it eventually fails.
 
 # repeat1'
 Defined in: `Lean.Parser.Tactic.repeat1'`
+
 `repeat1' tac` applies `tac` to main goal at least once. If the application succeeds,
 the tactic is applied recursively to the generated subgoals until it eventually fails.
 
 # replace
 Defined in: `Mathlib.Tactic.replace'`
+
 Acts like `have`, but removes a hypothesis with the same name as
 this one if possible. For example, if the state is:
 
@@ -3311,6 +3581,7 @@ h : β
 
 # replace
 Defined in: `Lean.Parser.Tactic.replace`
+
 Acts like `have`, but removes a hypothesis with the same name as
 this one if possible. For example, if the state is:
 
@@ -3341,11 +3612,13 @@ This can be used to simulate the `specialize` and `apply at` tactics of Coq.
 
 # revert
 Defined in: `Lean.Parser.Tactic.revert`
+
 `revert x...` is the inverse of `intro x...`: it moves the given hypotheses
 into the main goal's target type.
 
 # rewrite
 Defined in: `Lean.Parser.Tactic.rewriteSeq`
+
 `rewrite [e]` applies identity `e` as a rewrite rule to the target of the main goal.
 If `e` is preceded by left arrow (`←` or `<-`), the rewrite is applied in the reverse direction.
 If `e` is a defined constant, then the equational theorems associated with `e` are used.
@@ -3366,6 +3639,7 @@ restricting which later rewrites can be found.
 
 # rfl
 Defined in: `Lean.Parser.Tactic.tacticRfl`
+
 `rfl` tries to close the current goal using reflexivity.
 This is supposed to be an extensible tactic and users can add their own support
 for new reflexive relations.
@@ -3375,11 +3649,13 @@ reflexivity theorems (e.g., `Iff.rfl`).
 
 # rfl'
 Defined in: `Lean.Parser.Tactic.tacticRfl'`
+
 `rfl'` is similar to `rfl`, but disables smart unfolding and unfolds all kinds of definitions,
 theorems included (relevant for declarations defined by well-founded recursion).
 
 # rify
 Defined in: `Mathlib.Tactic.Rify.rify`
+
 The `rify` tactic is used to shift propositions from `ℕ`, `ℤ` or `ℚ` to `ℝ`.
 Although less useful than its cousins `zify` and `qify`, it can be useful when your
 goal or context already involves real numbers.
@@ -3409,6 +3685,7 @@ choice since it is enough to get rid of the pathological `ℕ` subtraction).
 
 # right
 Defined in: `Lean.Parser.Tactic.right`
+
 Applies the second constructor when
 the goal is an inductive type with exactly two constructors, or fails otherwise.
 ```
@@ -3419,6 +3696,7 @@ example {p q : Prop} (h : q) : p ∨ q := by
 
 # ring
 Defined in: `Mathlib.Tactic.RingNF.ring`
+
 Tactic for evaluating expressions in *commutative* (semi)rings, allowing for variables in the
 exponent.
 
@@ -3434,6 +3712,7 @@ example (x y : ℕ) : x + id y = y + id x := by ring!
 
 # ring!
 Defined in: `Mathlib.Tactic.RingNF.tacticRing!`
+
 Tactic for evaluating expressions in *commutative* (semi)rings, allowing for variables in the
 exponent.
 
@@ -3449,6 +3728,7 @@ example (x y : ℕ) : x + id y = y + id x := by ring!
 
 # ring1
 Defined in: `Mathlib.Tactic.Ring.ring1`
+
 Tactic for solving equations of *commutative* (semi)rings,
 allowing variables in the exponent.
 
@@ -3458,6 +3738,7 @@ allowing variables in the exponent.
 
 # ring1!
 Defined in: `Mathlib.Tactic.Ring.tacticRing1!`
+
 Tactic for solving equations of *commutative* (semi)rings,
 allowing variables in the exponent.
 
@@ -3467,6 +3748,7 @@ allowing variables in the exponent.
 
 # ring1_nf
 Defined in: `Mathlib.Tactic.RingNF.ring1NF`
+
 Tactic for solving equations of *commutative* (semi)rings, allowing variables in the exponent.
 
 * This version of `ring1` uses `ring_nf` to simplify in atoms.
@@ -3475,6 +3757,7 @@ Tactic for solving equations of *commutative* (semi)rings, allowing variables in
 
 # ring1_nf!
 Defined in: `Mathlib.Tactic.RingNF.tacticRing1_nf!_`
+
 Tactic for solving equations of *commutative* (semi)rings, allowing variables in the exponent.
 
 * This version of `ring1` uses `ring_nf` to simplify in atoms.
@@ -3483,6 +3766,7 @@ Tactic for solving equations of *commutative* (semi)rings, allowing variables in
 
 # ring_nf
 Defined in: `Mathlib.Tactic.RingNF.ringNF`
+
 Simplification tactic for expressions in the language of commutative (semi)rings,
 which rewrites all ring expressions into a normal form.
 * `ring_nf!` will use a more aggressive reducibility setting to identify atoms.
@@ -3494,6 +3778,7 @@ which rewrites all ring expressions into a normal form.
 
 # ring_nf!
 Defined in: `Mathlib.Tactic.RingNF.tacticRing_nf!__`
+
 Simplification tactic for expressions in the language of commutative (semi)rings,
 which rewrites all ring expressions into a normal form.
 * `ring_nf!` will use a more aggressive reducibility setting to identify atoms.
@@ -3505,6 +3790,7 @@ which rewrites all ring expressions into a normal form.
 
 # rintro
 Defined in: `Lean.Parser.Tactic.rintro`
+
 The `rintro` tactic is a combination of the `intros` tactic with `rcases` to
 allow for destructuring patterns while introducing variables. See `rcases` for
 a description of supported patterns. For example, `rintro (a | ⟨b, c⟩) ⟨d, e⟩`
@@ -3516,31 +3802,37 @@ and type-ascripting multiple variables at once, similar to binders.
 
 # rotate_left
 Defined in: `Lean.Parser.Tactic.rotateLeft`
+
 `rotate_left n` rotates goals to the left by `n`. That is, `rotate_left 1`
 takes the main goal and puts it to the back of the subgoal list.
 If `n` is omitted, it defaults to `1`.
 
 # rotate_right
 Defined in: `Lean.Parser.Tactic.rotateRight`
+
 Rotate the goals to the right by `n`. That is, take the goal at the back
 and push it to the front `n` times. If `n` is omitted, it defaults to `1`.
 
 # rsuffices
 Defined in: `rsuffices`
+
 The `rsuffices` tactic is an alternative version of `suffices`, that allows the usage
 of any syntax that would be valid in an `obtain` block. This tactic just calls `obtain`
 on the expression, and then `rotate_left`.
 
 # run_tac
 Defined in: `Lean.Parser.Tactic.runTac`
+
 The `run_tac doSeq` tactic executes code in `TacticM Unit`.
 
 # rw
 Defined in: `Lean.Parser.Tactic.rwSeq`
+
 `rw` is like `rewrite`, but also tries to close the goal by "cheap" (reducible) `rfl` afterwards.
 
 # rw?
 Defined in: `Mathlib.Tactic.Rewrites.rewrites'`
+
 `rw?` tries to find a lemma which can rewrite the goal.
 
 `rw?` should not be left in proofs; it is a search tool, like `apply?`.
@@ -3551,10 +3843,12 @@ You can use `rw? [-my_lemma, -my_theorem]` to prevent `rw?` using the named lemm
 
 # rw_mod_cast
 Defined in: `Lean.Parser.Tactic.tacticRw_mod_cast___`
+
 Rewrites with the given rules, normalizing casts prior to each step.
 
 # rw_search
 Defined in: `Mathlib.Tactic.RewriteSearch.tacticRw_search_`
+
 `rw_search` attempts to solve an equality goal
 by repeatedly rewriting using lemmas from the library.
 
@@ -3571,10 +3865,12 @@ to prevent `rw_search` from using the names theorems.
 
 # rwa
 Defined in: `Lean.Parser.Tactic.tacticRwa__`
+
 `rwa` calls `rw`, then closes any remaining goals using `assumption`.
 
 # save
 Defined in: `Lean.Parser.Tactic.save`
+
 `save` is defined to be the same as `skip`, but the elaborator has
 special handling for occurrences of `save` in tactic scripts and will transform
 `by tac1; save; tac2` to `by (checkpoint tac1); tac2`, meaning that the effect of `tac1`
@@ -3587,16 +3883,20 @@ this combinator explicitly.)
 # set
 Defined in: `Mathlib.Tactic.setTactic`
 
+
 # set!
 Defined in: `Mathlib.Tactic.tacticSet!_`
 
+
 # show
 Defined in: `Lean.Parser.Tactic.tacticShow_`
+
 `show t` finds the first goal whose target unifies with `t`. It makes that the main goal,
 performs the unification, and replaces the target with the unified version of `t`.
 
 # show_term
 Defined in: `Lean.Parser.Tactic.showTerm`
+
 `show_term tac` runs `tac`, then prints the generated term in the form
 "exact X Y Z" or "refine X ?_ Z" if there are remaining subgoals.
 
@@ -3604,6 +3904,7 @@ Defined in: `Lean.Parser.Tactic.showTerm`
 
 # simp
 Defined in: `Lean.Parser.Tactic.simp`
+
 The `simp` tactic uses lemmas and hypotheses to simplify the main goal target or
 non-dependent hypotheses. It has many variants:
 - `simp` simplifies the main goal target using lemmas tagged with the attribute `[simp]`.
@@ -3625,12 +3926,14 @@ non-dependent hypotheses. It has many variants:
 
 # simp!
 Defined in: `Lean.Parser.Tactic.simpAutoUnfold`
+
 `simp!` is shorthand for `simp` with `autoUnfold := true`.
 This will rewrite with all equation lemmas, which can be used to
 partially evaluate many definitions.
 
 # simp?
 Defined in: `Lean.Parser.Tactic.simpTrace`
+
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
@@ -3643,6 +3946,7 @@ This command can also be used in `simp_all` and `dsimp`.
 
 # simp?!
 Defined in: `Lean.Parser.Tactic.tacticSimp?!_`
+
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
@@ -3655,18 +3959,21 @@ This command can also be used in `simp_all` and `dsimp`.
 
 # simp_all
 Defined in: `Lean.Parser.Tactic.simpAll`
+
 `simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target
 are simplified multiple times until no simplification is applicable.
 Only non-dependent propositional hypotheses are considered.
 
 # simp_all!
 Defined in: `Lean.Parser.Tactic.simpAllAutoUnfold`
+
 `simp_all!` is shorthand for `simp_all` with `autoUnfold := true`.
 This will rewrite with all equation lemmas, which can be used to
 partially evaluate many definitions.
 
 # simp_all?
 Defined in: `Lean.Parser.Tactic.simpAllTrace`
+
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
@@ -3679,6 +3986,7 @@ This command can also be used in `simp_all` and `dsimp`.
 
 # simp_all?!
 Defined in: `Lean.Parser.Tactic.tacticSimp_all?!_`
+
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
@@ -3691,25 +3999,30 @@ This command can also be used in `simp_all` and `dsimp`.
 
 # simp_all_arith
 Defined in: `Lean.Parser.Tactic.simpAllArith`
+
 `simp_all_arith` combines the effects of `simp_all` and `simp_arith`.
 
 # simp_all_arith!
 Defined in: `Lean.Parser.Tactic.simpAllArithAutoUnfold`
+
 `simp_all_arith!` combines the effects of `simp_all`, `simp_arith` and `simp!`.
 
 # simp_arith
 Defined in: `Lean.Parser.Tactic.simpArith`
+
 `simp_arith` is shorthand for `simp` with `arith := true` and `decide := true`.
 This enables the use of normalization by linear arithmetic.
 
 # simp_arith!
 Defined in: `Lean.Parser.Tactic.simpArithAutoUnfold`
+
 `simp_arith!` is shorthand for `simp_arith` with `autoUnfold := true`.
 This will rewrite with all equation lemmas, which can be used to
 partially evaluate many definitions.
 
 # simp_intro
 Defined in: `Mathlib.Tactic.«tacticSimp_intro_____..Only_»`
+
 The `simp_intro` tactic is a combination of `simp` and `intro`: it will simplify the types of
 variables as it introduces them and uses the new variables to simplify later arguments
 and the goal.
@@ -3726,6 +4039,7 @@ example : x + 0 = y → x = z := by
 
 # simp_rw
 Defined in: `Mathlib.Tactic.tacticSimp_rw___`
+
 `simp_rw` functions as a mix of `simp` and `rw`. Like `rw`, it applies each
 rewrite rule in the given order, but like `simp` it repeatedly applies these
 rules and also under binders like `∀ x, ...`, `∃ x, ...` and `fun x ↦...`.
@@ -3749,11 +4063,13 @@ by simp_rw [h1, h2]
 
 # simp_wf
 Defined in: `tacticSimp_wf`
+
 Unfold definitions commonly used in well founded relation definitions.
 This is primarily intended for internal use in `decreasing_tactic`.
 
 # simpa
 Defined in: `Lean.Parser.Tactic.simpa`
+
 This is a "finishing" tactic modification of `simp`. It has two forms.
 
 * `simpa [rules, ⋯] using e` will simplify the goal and the type of
@@ -3769,6 +4085,7 @@ the `assumption` tactic.
 
 # simpa!
 Defined in: `Lean.Parser.Tactic.tacticSimpa!_`
+
 This is a "finishing" tactic modification of `simp`. It has two forms.
 
 * `simpa [rules, ⋯] using e` will simplify the goal and the type of
@@ -3784,6 +4101,7 @@ the `assumption` tactic.
 
 # simpa?
 Defined in: `Lean.Parser.Tactic.tacticSimpa?_`
+
 This is a "finishing" tactic modification of `simp`. It has two forms.
 
 * `simpa [rules, ⋯] using e` will simplify the goal and the type of
@@ -3799,6 +4117,7 @@ the `assumption` tactic.
 
 # simpa?!
 Defined in: `Lean.Parser.Tactic.tacticSimpa?!_`
+
 This is a "finishing" tactic modification of `simp`. It has two forms.
 
 * `simpa [rules, ⋯] using e` will simplify the goal and the type of
@@ -3814,31 +4133,37 @@ the `assumption` tactic.
 
 # sizeOf_list_dec
 Defined in: `List.tacticSizeOf_list_dec`
+
 This tactic, added to the `decreasing_trivial` toolbox, proves that
 `sizeOf a < sizeOf as` when `a ∈ as`, which is useful for well founded recursions
 over a nested inductive like `inductive T | mk : List T → T`.
 
 # skip
 Defined in: `Lean.Parser.Tactic.skip`
+
 `skip` does nothing.
 
 # sleep
 Defined in: `Lean.Parser.Tactic.sleep`
+
 The tactic `sleep ms` sleeps for `ms` milliseconds and does nothing.
 It is used for debugging purposes only.
 
 # slice_lhs
 Defined in: `sliceLHS`
+
 `slice_lhs a b => tac` zooms to the left hand side, uses associativity for categorical
 composition as needed, zooms in on the `a`-th through `b`-th morphisms, and invokes `tac`.
 
 # slice_rhs
 Defined in: `sliceRHS`
+
 `slice_rhs a b => tac` zooms to the right hand side, uses associativity for categorical
 composition as needed, zooms in on the `a`-th through `b`-th morphisms, and invokes `tac`.
 
 # slim_check
 Defined in: `slimCheckSyntax`
+
 `slim_check` considers a proof goal and tries to generate examples
 that would contradict the statement.
 
@@ -3891,14 +4216,17 @@ Options:
 
 # smul_tac
 Defined in: `RatFunc.tacticSmul_tac`
+
 Solve equations for `RatFunc K` by applying `RatFunc.induction_on`.
 
 # solve
 Defined in: `solve`
+
 Similar to `first`, but succeeds only if one the given tactics solves the current goal.
 
 # solve_by_elim
 Defined in: `Lean.Parser.Tactic.solveByElim`
+
 `solve_by_elim` calls `apply` on the main goal to find an assumption whose head matches
 and then repeatedly calls `apply` on the generated subgoals until no subgoals remain,
 performing at most `maxDepth` (defaults to 6) recursive steps.
@@ -3937,6 +4265,7 @@ Both `apply_assumption` and `apply_rules` are implemented via these hooks.
 
 # sorry
 Defined in: `Lean.Parser.Tactic.tacticSorry`
+
 The `sorry` tactic closes the goal using `sorryAx`. This is intended for stubbing out incomplete
 parts of a proof while still having a syntactically correct proof skeleton. Lean will give
 a warning whenever a proof uses `sorry`, so you aren't likely to miss it, but
@@ -3945,6 +4274,7 @@ you can double check if a theorem depends on `sorry` by using
 
 # specialize
 Defined in: `Lean.Parser.Tactic.specialize`
+
 The tactic `specialize h a₁ ... aₙ` works on local hypothesis `h`.
 The premises of this hypothesis, either universal quantifications or
 non-dependent implications, are instantiated by concrete terms coming
@@ -3954,6 +4284,7 @@ and tries to clear the previous one.
 
 # split
 Defined in: `Lean.Parser.Tactic.split`
+
 The `split` tactic is useful for breaking nested if-then-else and `match` expressions into separate cases.
 For a `match` expression with `n` cases, the `split` tactic generates at most `n` subgoals.
 
@@ -3967,10 +4298,12 @@ renamed used the `case` or `next` tactics.
 
 # split_ands
 Defined in: `Std.Tactic.tacticSplit_ands`
+
 `split_ands` applies `And.intro` until it does not make progress.
 
 # split_ifs
 Defined in: `Mathlib.Tactic.splitIfs`
+
 Splits all if-then-else-expressions into multiple goals.
 Given a goal of the form `g (if p then x else y)`, `split_ifs` will produce
 two goals: `p ⊢ g x` and `¬p ⊢ g y`.
@@ -3982,6 +4315,7 @@ ite-expression.
 
 # squeeze_scope
 Defined in: `Std.Tactic.squeezeScope`
+
 The `squeeze_scope` tactic allows aggregating multiple calls to `simp` coming from the same syntax
 but in different branches of execution, such as in `cases x <;> simp`.
 The reported `simp` call covers all simp lemmas used by this syntax.
@@ -4005,6 +4339,7 @@ example : foo x y = 1 + y := by
 
 # stop
 Defined in: `Lean.Parser.Tactic.tacticStop_`
+
 `stop` is a helper tactic for "discarding" the rest of a proof:
 it is defined as `repeat sorry`.
 It is useful when working on the middle of a complex proofs,
@@ -4012,25 +4347,30 @@ and less messy than commenting the remainder of the proof.
 
 # subst
 Defined in: `Lean.Parser.Tactic.subst`
+
 `subst x...` substitutes each `x` with `e` in the goal if there is a hypothesis
 of type `x = e` or `e = x`.
 If `x` is itself a hypothesis of type `y = e` or `e = y`, `y` is substituted instead.
 
 # subst_eqs
 Defined in: `Lean.Parser.Tactic.substEqs`
+
 `subst_eq` repeatedly substitutes according to the equality proof hypotheses in the context,
 replacing the left side of the equality with the right, until no more progress can be made.
 
 # subst_vars
 Defined in: `Lean.Parser.Tactic.substVars`
+
 Applies `subst` to all hypotheses of the form `h : x = t` or `h : t = x`.
 
 # substs
 Defined in: `Mathlib.Tactic.Substs.substs`
+
 Applies the `subst` tactic to all given hypotheses from left to right.
 
 # success_if_fail_with_msg
 Defined in: `Mathlib.Tactic.successIfFailWithMsg`
+
 `success_if_fail_with_msg msg tacs` runs `tacs` and succeeds only if they fail with the message
 `msg`.
 
@@ -4038,6 +4378,7 @@ Defined in: `Mathlib.Tactic.successIfFailWithMsg`
 
 # suffices
 Defined in: `Lean.Parser.Tactic.tacticSuffices_`
+
 Given a main goal `ctx ⊢ t`, `suffices h : t' from e` replaces the main goal with `ctx ⊢ t'`,
 `e` must have type `t` in the context `ctx, h : t'`.
 
@@ -4047,12 +4388,15 @@ If `h :` is omitted, the name `this` is used.
 # suffices
 Defined in: `Mathlib.Tactic.tacticSuffices_`
 
+
 # swap
 Defined in: `Std.Tactic.tacticSwap`
+
 `swap` is a shortcut for `pick_goal 2`, which interchanges the 1st and 2nd goals.
 
 # swap_var
 Defined in: `Mathlib.Tactic.«tacticSwap_var__,,»`
+
 `swap_var swap_rule₁, swap_rule₂, ⋯` applies `swap_rule₁` then `swap_rule₂` then `⋯`.
 
 A *swap_rule* is of the form `x y` or `x ↔ y`, and "applying it" means swapping the variable name
@@ -4066,6 +4410,7 @@ example {P Q : Prop} (q : P) (p : Q) : P ∧ Q := by
 
 # symm
 Defined in: `Lean.Parser.Tactic.symm`
+
 * `symm` applies to a goal whose target has the form `t ~ u` where `~` is a symmetric relation,
   that is, a relation which has a symmetry lemma tagged with the attribute [symm].
   It replaces the target with `u ~ t`.
@@ -4073,11 +4418,13 @@ Defined in: `Lean.Parser.Tactic.symm`
 
 # symm_saturate
 Defined in: `Lean.Parser.Tactic.symmSaturate`
+
 For every hypothesis `h : a ~ b` where a `@[symm]` lemma is available,
 add a hypothesis `h_symm : b ~ a`.
 
 # tauto
 Defined in: `Mathlib.Tactic.Tauto.tauto`
+
 `tauto` breaks down assumptions of the form `_ ∧ _`, `_ ∨ _`, `_ ↔ _` and `∃ _, _`
 and splits a goal of the form `_ ∧ _`, `_ ↔ _` or `∃ _, _` until it can be discharged
 using `reflexivity` or `solve_by_elim`.
@@ -4089,6 +4436,7 @@ is designed for that purpose.
 
 # tfae_finish
 Defined in: `Mathlib.Tactic.TFAE.tfaeFinish`
+
 `tfae_finish` is used to close goals of the form `TFAE [P₁, P₂, ...]` once a sufficient collection
 of hypotheses of the form `Pᵢ → Pⱼ` or `Pᵢ ↔ Pⱼ` have been introduced to the local context.
 
@@ -4108,6 +4456,7 @@ example : TFAE [P, Q, R] := by
 
 # tfae_have
 Defined in: `Mathlib.Tactic.TFAE.tfaeHave`
+
 `tfae_have` introduces hypotheses for proving goals of the form `TFAE [P₁, P₂, ...]`. Specifically,
 `tfae_have i arrow j` introduces a hypothesis of type `Pᵢ arrow Pⱼ` to the local context,
 where `arrow` can be `→`, `←`, or `↔`. Note that `i` and `j` are natural number indices (beginning
@@ -4143,18 +4492,22 @@ example : TFAE [P, Q, R] := by
 
 # trace
 Defined in: `Lean.Parser.Tactic.trace`
+
 Evaluates a term to a string (when possible), and prints it as a trace message.
 
 # trace
 Defined in: `Lean.Parser.Tactic.traceMessage`
+
 `trace msg` displays `msg` in the info view.
 
 # trace_state
 Defined in: `Lean.Parser.Tactic.traceState`
+
 `trace_state` displays the current state in the info view.
 
 # trans
 Defined in: `Mathlib.Tactic.tacticTrans___`
+
 `trans` applies to a goal whose target has the form `t ~ u` where `~` is a transitive relation,
 that is, a relation which has a transitivity lemma tagged with the attribute [trans].
 
@@ -4164,12 +4517,15 @@ that is, a relation which has a transitivity lemma tagged with the attribute [tr
 # transitivity
 Defined in: `Mathlib.Tactic.tacticTransitivity___`
 
+
 # triv
 Defined in: `Std.Tactic.triv`
+
 Deprecated variant of `trivial`.
 
 # trivial
 Defined in: `Lean.Parser.Tactic.tacticTrivial`
+
 `trivial` tries different simple tactics (e.g., `rfl`, `contradiction`, ...)
 to close the current goal.
 You can use the command `macro_rules` to extend the set of tactics used. Example:
@@ -4179,14 +4535,17 @@ macro_rules | `(tactic| trivial) => `(tactic| simp)
 
 # try
 Defined in: `Lean.Parser.Tactic.tacticTry_`
+
 `try tac` runs `tac` and succeeds even if `tac` failed.
 
 # type_check
 Defined in: `tacticType_check_`
+
 Type check the given expression, and trace its type.
 
 # unfold
 Defined in: `Lean.Parser.Tactic.unfold`
+
 * `unfold id` unfolds definition `id`.
 * `unfold id1 id2 ...` is equivalent to `unfold id1; unfold id2; ...`.
 
@@ -4196,6 +4555,7 @@ autogenerated for each match arm.
 
 # unfold_let
 Defined in: `Mathlib.Tactic.unfoldLetStx`
+
 `unfold_let x y z at loc` unfolds the local definitions `x`, `y`, and `z` at the given
 location, which is known as "zeta reduction."
 This also exists as a `conv`-mode tactic.
@@ -4207,11 +4567,13 @@ This is similar to the `unfold` tactic, which instead is for unfolding global de
 
 # unfold_projs
 Defined in: `Mathlib.Tactic.unfoldProjsStx`
+
 `unfold_projs at loc` unfolds projections of class instances at the given location.
 This also exists as a `conv`-mode tactic.
 
 # unhygienic
 Defined in: `Lean.Parser.Tactic.tacticUnhygienic_`
+
 `unhygienic tacs` runs `tacs` with name hygiene disabled.
 This means that tactics that would normally create inaccessible names will instead
 make regular variables. **Warning**: Tactics may change their variable naming
@@ -4225,10 +4587,12 @@ example : ∀ x : Nat, x = x := by unhygienic
 
 # unit_interval
 Defined in: `Tactic.Interactive.tacticUnit_interval`
+
 A tactic that solves `0 ≤ ↑x`, `0 ≤ 1 - ↑x`, `↑x ≤ 1`, and `1 - ↑x ≤ 1` for `x : I`.
 
 # unreachable!
 Defined in: `Std.Tactic.unreachable`
+
 This tactic causes a panic when run (at compile time).
 (This is distinct from `exact unreachable!`, which inserts code which will panic at run time.)
 
@@ -4242,6 +4606,7 @@ example : True := by trivial <;> unreachable!
 
 # use
 Defined in: `Mathlib.Tactic.useSyntax`
+
 `use e₁, e₂, ⋯` is similar to `exists`, but unlike `exists` it is equivalent to applying the tactic
 `refine ⟨e₁, e₂, ⋯, ?_, ⋯, ?_⟩` with any number of placeholders (rather than just one) and
 then trying to close goals associated to the placeholders with a configurable discharger (rather
@@ -4281,6 +4646,7 @@ To allow "heavy refls", use `(discharger := try use_discharger)`.
 
 # use!
 Defined in: `Mathlib.Tactic.«tacticUse!___,,»`
+
 `use e₁, e₂, ⋯` is similar to `exists`, but unlike `exists` it is equivalent to applying the tactic
 `refine ⟨e₁, e₂, ⋯, ?_, ⋯, ?_⟩` with any number of placeholders (rather than just one) and
 then trying to close goals associated to the placeholders with a configurable discharger (rather
@@ -4320,22 +4686,27 @@ To allow "heavy refls", use `(discharger := try use_discharger)`.
 
 # use_discharger
 Defined in: `Mathlib.Tactic.tacticUse_discharger`
+
 Default discharger to try to use for the `use` and `use!` tactics.
 This is similar to the `trivial` tactic but doesn't do things like `contradiction` or `decide`.
 
 # use_finite_instance
 Defined in: `tacticUse_finite_instance`
 
+
 # volume_tac
 Defined in: `MeasureTheory.tacticVolume_tac`
+
 The tactic `exact volume`, to be used in optional (`autoParam`) arguments.
 
 # whisker_simps
 Defined in: `Mathlib.Tactic.BicategoryCoherence.whisker_simps`
+
 Simp lemmas for rewriting a 2-morphism into a normal form.
 
 # whnf
 Defined in: `Mathlib.Tactic.tacticWhnf__`
+
 `whnf at loc` puts the given location into weak-head normal form.
 This also exists as a `conv`-mode tactic.
 
@@ -4344,21 +4715,25 @@ may contain subexpressions which have not been reduced.
 
 # with_reducible
 Defined in: `Lean.Parser.Tactic.withReducible`
+
 `with_reducible tacs` executes `tacs` using the reducible transparency setting.
 In this setting only definitions tagged as `[reducible]` are unfolded.
 
 # with_reducible_and_instances
 Defined in: `Lean.Parser.Tactic.withReducibleAndInstances`
+
 `with_reducible_and_instances tacs` executes `tacs` using the `.instances` transparency setting.
 In this setting only definitions tagged as `[reducible]` or type class instances are unfolded.
 
 # with_unfolding_all
 Defined in: `Lean.Parser.Tactic.withUnfoldingAll`
+
 `with_unfolding_all tacs` executes `tacs` using the `.all` transparency setting.
 In this setting all definitions that are not opaque are unfolded.
 
 # wlog
 Defined in: `Mathlib.Tactic.wlog`
+
 `wlog h : P` will add an assumption `h : P` to the main goal, and add a side goal that requires
 showing that the case `h : ¬ P` can be reduced to the case where `P` holds (typically by symmetry).
 
@@ -4378,6 +4753,7 @@ By default, the entire context is reverted.
 
 # zify
 Defined in: `Mathlib.Tactic.Zify.zify`
+
 The `zify` tactic is used to shift propositions from `Nat` to `Int`.
 This is often useful since `Int` has well-behaved subtraction.
 ```
