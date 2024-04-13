@@ -25,11 +25,16 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+        with:
+          ref: nightly
 
       - name: Install elan
         run: |
           curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
           echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+      - name: override elan default
+        run: elan override set leanprover/lean4:nightly
 
       - name: Cache dependencies
         uses: actions/cache@v3
