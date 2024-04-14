@@ -9,4 +9,4 @@ package «mathlib4-all-tactics» where
   -- add any additional package configuration options here
 
 require mathlib from git
-  "https://github.com/leanprover-community/mathlib4.git" @ "master"
+  "https://github.com/leanprover-community/mathlib4.git" @ "v4.7.0"
