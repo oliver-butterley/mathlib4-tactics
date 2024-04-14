@@ -44,7 +44,7 @@ Tactic for evaluating expressions in abelian groups.
 * `abel1` fails if the target is not an equality.
 
 For example:
-```
+```lean
 example [AddCommMonoid α] (a b : α) : a + (b + a) = a + a + b := by abel
 example [AddCommGroup α] (a : α) : (3 : ℤ) • a = a + (2 : ℤ) • a := by abel
 ```
@@ -63,7 +63,7 @@ Tactic for evaluating expressions in abelian groups.
 * `abel1` fails if the target is not an equality.
 
 For example:
-```
+```lean
 example [AddCommMonoid α] (a b : α) : a + (b + a) = a + a + b := by abel
 example [AddCommGroup α] (a : α) : (3 : ℤ) • a = a + (2 : ℤ) • a := by abel
 ```
@@ -135,7 +135,7 @@ example (a b c d e f g N : ℕ) : (a + b) + (c + d) + (e + f) + g ≤ N := by
 Defined in: `Lean.Parser.Tactic.acRfl`
 
 `ac_rfl` proves equalities up to application of an associative and commutative operator.
-```
+```lean
 instance : Associative (α := Nat) (.+.) := ⟨Nat.add_assoc⟩
 instance : Commutative (α := Nat) (.+.) := ⟨Nat.add_comm⟩
 
@@ -547,7 +547,7 @@ example : 1 < 2 := by
 Defined in: `calcTactic`
 
 Step-wise reasoning over transitive relations.
-```
+```lean
 calc
   a = b := pab
   b = c := pbc
@@ -566,7 +566,7 @@ calc
 ```
 It is also possible to write the *first* relation as `<lhs>\n  _ = <rhs> :=
 <proof>`. This is useful for aligning relation symbols:
-```
+```lean
 calc abc
   _ = bce := pabce
   _ = cef := pbcef
@@ -697,7 +697,7 @@ Defined in: `Mathlib.Tactic.casesType`
 * `cases_type! I` only applies `cases` if the number of resulting subgoals is <= 1.
 
 Example: The following tactic destructs all conjunctions and disjunctions in the current goal.
-```
+```lean
 cases_type* Or And
 ```
 
@@ -711,7 +711,7 @@ Defined in: `Mathlib.Tactic.casesType!`
 * `cases_type! I` only applies `cases` if the number of resulting subgoals is <= 1.
 
 Example: The following tactic destructs all conjunctions and disjunctions in the current goal.
-```
+```lean
 cases_type* Or And
 ```
 
@@ -726,7 +726,7 @@ Defined in: `Mathlib.Tactic.casesM`
   It is more efficient because the pattern is compiled once.
 
 Example: The following tactic destructs all conjunctions and disjunctions in the current context.
-```
+```lean
 casesm* _ ∨ _, _ ∧ _
 ```
 
@@ -858,7 +858,7 @@ Defined in: `Std.Tactic.tacticClassical_`
 `classical tacs` runs `tacs` in a scope where `Classical.propDecidable` is a low priority
 local instance. It differs from `classical!` in that `classical!` uses a local variable,
 which has high priority:
-```
+```lean
 noncomputable def foo : Bool := by
   classical!
   have := ∀ p, decide p -- uses the classical instance
@@ -877,7 +877,7 @@ Defined in: `Std.Tactic.classical!`
 
 `classical!` adds a proof of `Classical.propDecidable` as a local variable, which makes it
 available for instance search and effectively makes all propositions decidable.
-```
+```lean
 noncomputable def foo : Bool := by
   classical!
   have := ∀ p, decide p -- uses the classical instance
@@ -1035,7 +1035,7 @@ recursively applying congruence lemmas. For example, with `⊢ f as = g bs` we c
 two goals `⊢ f = g` and `⊢ as = bs`.
 
 Syntax:
-```
+```lean
 congr!
 congr! n
 congr! with x y z
@@ -1155,7 +1155,7 @@ Defined in: `Mathlib.Tactic.constructorM`
 
 Example: The following tactic proves any theorem like `True ∧ (True ∨ True)` consisting of
 and/or/true:
-```
+```lean
 constructorm* _ ∨ _, _ ∧ _, True
 ```
 
@@ -1324,7 +1324,7 @@ Defined in: `Lean.Parser.Tactic.dbgTrace`
 
 `dbg_trace "foo"` prints `foo` when elaborated.
 Useful for debugging tactic control flow:
-```
+```lean
 example : False ∨ True := by
   first
   | apply Or.inl; trivial; dbg_trace "left"
@@ -1347,7 +1347,7 @@ Defined in: `tacticDecreasing_trivial`
 Extensible helper tactic for `decreasing_tactic`. This handles the "base case"
 reasoning after applying lexicographic order lemmas.
 It can be extended by adding more macro definitions, e.g.
-```
+```lean
 macro_rules | `(tactic| decreasing_trivial) => `(tactic| linarith)
 ```
 
@@ -1395,7 +1395,7 @@ Defined in: `Lean.Parser.Tactic.dsimpTrace`
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
-```
+```lean
 example (x : Nat) : (if True then x + 2 else 3) = x + 2 := by
   simp? -- prints "Try this: simp only [ite_true]"
 ```
@@ -1408,7 +1408,7 @@ Defined in: `Lean.Parser.Tactic.tacticDsimp?!_`
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
-```
+```lean
 example (x : Nat) : (if True then x + 2 else 3) = x + 2 := by
   simp? -- prints "Try this: simp only [ite_true]"
 ```
@@ -1421,7 +1421,7 @@ Defined in: `Std.Tactic.tacticEapply_`
 `eapply e` is like `apply e` but it does not add subgoals for variables that appear
 in the types of other goals. Note that this can lead to a failure where there are
 no goals remaining but there are still metavariables in the term:
-```
+```lean
 example (h : ∀ x : Nat, x = x → True) : True := by
   eapply h
   rfl
@@ -1836,7 +1836,7 @@ x ^ 2 * ?_ + ?_
 `gcongr`, we have the simpler goals `a ≤ b` and `c ≤ d`.
 
 A pattern can be provided explicitly; this is useful if a non-maximal match is desired:
-```
+```lean
 example {a b c d x : ℝ} (h : a + c + 1 ≤ b + d + 1) :
     x ^ 2 * (a + c) + 5 ≤ x ^ 2 * (b + d) + 5 := by
   gcongr x ^ 2 * ?_ + 5
@@ -2274,7 +2274,7 @@ explicitly name the non-dependent hypotheses.
 Any dependent hypotheses are assigned their default names.
 
 Examples:
-```
+```lean
 example : ∀ a b : Nat, a = b → b = a := by
   introv h,
   exact h.symm
@@ -2328,7 +2328,7 @@ Defined in: `Lean.Parser.Tactic.left`
 
 Applies the second constructor when
 the goal is an inductive type with exactly two constructors, or fails otherwise.
-```
+```lean
 example : True ∨ False := by
   left
   trivial
@@ -2596,7 +2596,7 @@ Note: The left and right sides of all the equalities should have the same
     then `2 * (← h)` is a proof of `2 * b = 2 * a`.
 
 Example Usage:
-```
+```lean
 example (x y : ℤ) (h1 : x*y + 2*x = 1) (h2 : x = y) : x*y = -2*y + 1 := by
   linear_combination 1*h1 - 2*h2
 
@@ -2669,7 +2669,7 @@ Note: The left and right sides of all the equalities should have the same
     then `2 * (← h)` is a proof of `2 * b = 2 * a`.
 
 Example Usage:
-```
+```lean
 example (x y : ℤ) (h1 : x*y + 2*x = 1) (h2 : x = y) : x*y = -2*y + 1 := by
   linear_combination 1*h1 - 2*h2
 
@@ -3149,12 +3149,12 @@ with `∃`, as well as `∀ᶠ` and `∃ᶠ`, and it can even be applied to a se
 that this is a logically weaker setup, so using this tactic is not always feasible.
 
 For a more complex example, given a hypothesis and a goal:
-```
+```lean
 h : ∀ ε > (0 : ℝ), ∃ N : ℕ, ∀ n ≥ N, 1 / (n + 1 : ℝ) < ε
 ⊢ ∀ ε > (0 : ℝ), ∃ N : ℕ, ∀ n ≥ N, 1 / (n + 1 : ℝ) ≤ ε
 ```
 (which differ only in `<`/`≤`), applying `peel h with ε hε N n hn h_peel` will yield a tactic state:
-```
+```lean
 h : ∀ ε > (0 : ℝ), ∃ N : ℕ, ∀ n ≥ N, 1 / (n + 1 : ℝ) < ε
 ε : ℝ
 hε : 0 < ε
@@ -3240,7 +3240,7 @@ numeric lower bounds which can be proved positive/nonnegative/nonzero by `norm_n
 either closes the goal or fails.
 
 Examples:
-```
+```lean
 example {a : ℤ} (ha : 3 < a) : 0 ≤ a ^ 3 + a := by positivity
 
 example {a : ℤ} (ha : 1 < a) : 0 < |(3:ℤ) + a| := by positivity
@@ -3314,7 +3314,7 @@ Defined in: `Mathlib.Tactic.Qify.qify`
 
 The `qify` tactic is used to shift propositions from `ℕ` or `ℤ` to `ℚ`.
 This is often useful since `ℚ` has well-behaved division.
-```
+```lean
 example (a b c x y z : ℕ) (h : ¬ x*y*z < 0) : c < a + 3*b := by
   qify
   qify at h
@@ -3326,7 +3326,7 @@ example (a b c x y z : ℕ) (h : ¬ x*y*z < 0) : c < a + 3*b := by
 ```
 `qify` can be given extra lemmas to use in simplification. This is especially useful in the
 presence of nat subtraction: passing `≤` arguments will allow `push_cast` to do more work.
-```
+```lean
 example (a b c : ℤ) (h : a / b = c) (hab : b ∣ a) (hb : b ≠ 0) : a = c * b := by
   qify [hab] at h hb ⊢
   exact (div_eq_iff hb).1 h
@@ -3430,7 +3430,7 @@ The tactic `reduce_mod_char` looks for numeric expressions in characteristic `p`
 and reduces these to lie between `0` and `p`.
 
 For example:
-```
+```lean
 example : (5 : ZMod 4) = 1 := by reduce_mod_char
 example : (X ^ 2 - 3 * X + 4 : (ZMod 4)[X]) = X ^ 2 + X := by reduce_mod_char
 ```
@@ -3677,7 +3677,7 @@ propositions, and the `push_cast` tactic to simplify the `ℝ`-valued expression
 
 `rify` can be given extra lemmas to use in simplification. This is especially useful in the
 presence of nat subtraction: passing `≤` arguments will allow `push_cast` to do more work.
-```
+```lean
 example (a b c : ℕ) (h : a - b < c) (hab : b ≤ a) : a < b + c := by
   rify [hab] at h ⊢
   linarith
@@ -3690,7 +3690,7 @@ Defined in: `Lean.Parser.Tactic.right`
 
 Applies the second constructor when
 the goal is an inductive type with exactly two constructors, or fails otherwise.
-```
+```lean
 example {p q : Prop} (h : q) : p ∨ q := by
   right
   exact h
@@ -3706,7 +3706,7 @@ exponent.
 * `ring1` fails if the target is not an equality.
 
 For example:
-```
+```lean
 example (n : ℕ) (m : ℤ) : 2^(n+1) * m = 2 * 2^n * m := by ring
 example (a b : ℤ) (n : ℕ) : (a + b)^(n + 2) = (a^2 + b^2 + a * b + b * a) * (a + b)^n := by ring
 example (x y : ℕ) : x + id y = y + id x := by ring!
@@ -3722,7 +3722,7 @@ exponent.
 * `ring1` fails if the target is not an equality.
 
 For example:
-```
+```lean
 example (n : ℕ) (m : ℤ) : 2^(n+1) * m = 2 * 2^n * m := by ring
 example (a b : ℤ) (n : ℕ) : (a + b)^(n + 2) = (a^2 + b^2 + a * b + b * a) * (a + b)^n := by ring
 example (x y : ℕ) : x + id y = y + id x := by ring!
@@ -3939,7 +3939,7 @@ Defined in: `Lean.Parser.Tactic.simpTrace`
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
-```
+```lean
 example (x : Nat) : (if True then x + 2 else 3) = x + 2 := by
   simp? -- prints "Try this: simp only [ite_true]"
 ```
@@ -3952,7 +3952,7 @@ Defined in: `Lean.Parser.Tactic.tacticSimp?!_`
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
-```
+```lean
 example (x : Nat) : (if True then x + 2 else 3) = x + 2 := by
   simp? -- prints "Try this: simp only [ite_true]"
 ```
@@ -3979,7 +3979,7 @@ Defined in: `Lean.Parser.Tactic.simpAllTrace`
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
-```
+```lean
 example (x : Nat) : (if True then x + 2 else 3) = x + 2 := by
   simp? -- prints "Try this: simp only [ite_true]"
 ```
@@ -3992,7 +3992,7 @@ Defined in: `Lean.Parser.Tactic.tacticSimp_all?!_`
 `simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`
 that would be sufficient to close the goal. This is useful for reducing the size of the simp
 set in a local invocation to speed up processing.
-```
+```lean
 example (x : Nat) : (if True then x + 2 else 3) = x + 2 := by
   simp? -- prints "Try this: simp only [ite_true]"
 ```
@@ -4321,7 +4321,7 @@ Defined in: `Std.Tactic.squeezeScope`
 The `squeeze_scope` tactic allows aggregating multiple calls to `simp` coming from the same syntax
 but in different branches of execution, such as in `cases x <;> simp`.
 The reported `simp` call covers all simp lemmas used by this syntax.
-```
+```lean
 @[simp] def bar (z : Nat) := 1 + z
 @[simp] def baz (z : Nat) := 1 + z
 
@@ -4531,7 +4531,7 @@ Defined in: `Lean.Parser.Tactic.tacticTrivial`
 `trivial` tries different simple tactics (e.g., `rfl`, `contradiction`, ...)
 to close the current goal.
 You can use the command `macro_rules` to extend the set of tactics used. Example:
-```
+```lean
 macro_rules | `(tactic| trivial) => `(tactic| simp)
 ```
 
@@ -4581,7 +4581,7 @@ This means that tactics that would normally create inaccessible names will inste
 make regular variables. **Warning**: Tactics may change their variable naming
 strategies at any time, so code that depends on autogenerated names is brittle.
 Users should try not to use `unhygienic` if possible.
-```
+```lean
 example : ∀ x : Nat, x = x := by unhygienic
   intro            -- x would normally be intro'd as inaccessible
   exact Eq.refl x  -- refer to x
@@ -4758,7 +4758,7 @@ Defined in: `Mathlib.Tactic.Zify.zify`
 
 The `zify` tactic is used to shift propositions from `Nat` to `Int`.
 This is often useful since `Int` has well-behaved subtraction.
-```
+```lean
 example (a b c x y z : Nat) (h : ¬ x*y*z < 0) : c < a + 3*b := by
   zify
   zify at h
@@ -4769,7 +4769,7 @@ example (a b c x y z : Nat) (h : ¬ x*y*z < 0) : c < a + 3*b := by
 ```
 `zify` can be given extra lemmas to use in simplification. This is especially useful in the
 presence of nat subtraction: passing `≤` arguments will allow `push_cast` to do more work.
-```
+```lean
 example (a b c : Nat) (h : a - b < c) (hab : b ≤ a) : false := by
   zify [hab] at h
   /- h : ↑a - ↑b < ↑c -/
@@ -4846,7 +4846,7 @@ intro
 | pat2 => tac2
 ```
 is the same as:
-```
+```lean
 intro x
 match x with
 | pat1 => tac1
@@ -4860,7 +4860,7 @@ syntax ... [Lean.Parser.Tactic.match]
 See [Induction and Recursion][tpil4].
 The syntax for the `match` tactic is the same as term-mode `match`, except that
 the match arms are tactics instead of expressions.
-```
+```lean
 example (n : Nat) : n = n := by
   match n with
   | 0 => rfl
@@ -4879,7 +4879,7 @@ part, and the axiom `ofReduceBool` will show up in `#print axioms` for theorems 
 this method or anything that transitively depends on them. Nevertheless, because it is
 compiled, this can be significantly more efficient than using `decide`, and for very
 large computations this is one way to run external programs and trust the result.
-```
+```lean
 example : (List.range 1000).length = 1000 := by native_decide
 ```
 
@@ -4895,7 +4895,7 @@ but it sets the option only within the tactics `tacs`.
 
 syntax ... [Lean.Parser.Tactic.tacDepIfThenElse]
 In tactic mode, `if h : t then tac1 else tac2` can be used as alternative syntax for:
-```
+```lean
 by_cases h : t
 · tac1
 · tac2
@@ -4908,7 +4908,7 @@ by the end of the block.
 
 syntax ... [Lean.Parser.Tactic.tacIfThenElse]
 In tactic mode, `if t then tac1 else tac2` is alternative syntax for:
-```
+```lean
 by_cases t
 · tac1
 · tac2
@@ -4932,7 +4932,7 @@ Once you've clicked to replace `X says` with `X says Y`,
 afterwards `X says Y` will only run `Y`.
 
 The typical usage case is:
-```
+```lean
 simp? [X] says simp only [X, Y, Z]
 ```
 
