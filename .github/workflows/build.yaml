@@ -10,9 +10,6 @@ on:
   push:
     branches:
       - main
-  schedule:
-    # monthly run
-    - cron: '0 0 1 * *'
 
 permissions:
   contents: write
