@@ -40,7 +40,7 @@ jobs:
         run: lake exe cache get
 
       - name: generate markdown file
-        run: lake env lean --run Main.lean > tactics.md
+        run: lake env lean --run Main.lean > src/tactics.md
 
       - name: run python script
         run: python3 script.py
@@ -48,7 +48,7 @@ jobs:
       - name: get diff
         id: diff
         run: |
-          git add -N tactics.md
+          git add -N src/tactics.md
           git diff --name-only --exit-code
         continue-on-error: true
 
