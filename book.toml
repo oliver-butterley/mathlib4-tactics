@@ -4,3 +4,7 @@ language = "en"
 multilingual = false
 src = "src"
 title = "mathlib4 tactics"
+
+[build]
+create-missing = false
+build-dir = "book"
