@@ -1,7 +1,7 @@
 import re
 
 def main():
-  file_path = "tactics.md"
+  file_path = "src/tactics.md"
 
   pattern = r'syntax "(.*?)".*?\[(.*)\]'
 
