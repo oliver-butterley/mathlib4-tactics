@@ -1,3 +1,5 @@
+Lean version: `{{#include ../lean-toolchain}}`
+
 # #check
 Defined in: `Mathlib.Tactic.«tactic#check__»`
 
