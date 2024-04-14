@@ -12,8 +12,10 @@ def main():
 
   new_content = re.sub(pattern, replacement, content)
 
+  content_with_version = 'Lean version: `{{#include ../lean-toolchain}}`\n\n' + new_content
+
   with open(file_path, 'w', encoding='utf-8') as file:
-    file.write(new_content)
+    file.write(content_with_version)
 
 if __name__ == '__main__':
   main()

@@ -53,7 +53,7 @@ jobs:
         continue-on-error: true
 
       - name: commit
-        if: steps.diff.outcome == 'failure'
+        if: steps.diff.outcome == 'failure' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
