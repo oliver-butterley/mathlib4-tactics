@@ -29,7 +29,7 @@ jobs:
           echo "$HOME/.elan/bin" >> $GITHUB_PATH
 
       - name: get mathlib cache
-        run: lake exe cache get
+        run: lake exe cache get!
 
       - name: generate markdown file
         run: lake env lean --run Main.lean > src/tactics.md
