@@ -372,6 +372,13 @@ Defined in: `Lean.Parser.Tactic.tacticApply_mod_cast_`
 
 Normalize casts in the goal and the given expression, then `apply` the expression to the goal.
 
+# apply_rfl
+Defined in: `Lean.Parser.Tactic.applyRfl`
+
+This tactic applies to a goal whose target has the form `x ~ x`,
+where `~` is a reflexive relation other than `=`,
+that is, a relation which has a reflexive lemma tagged with the attribute @[refl].
+
 # apply_rules
 Defined in: `Lean.Parser.Tactic.applyRules`
 
@@ -565,7 +572,8 @@ calc
   _ = z := pyz
 ```
 It is also possible to write the *first* relation as `<lhs>\n  _ = <rhs> :=
-<proof>`. This is useful for aligning relation symbols:
+<proof>`. This is useful for aligning relation symbols, especially on longer:
+identifiers:
 ```lean
 calc abc
   _ = bce := pabce
@@ -574,10 +582,7 @@ calc abc
   _ = xyz := pwxyz
 ```
 
-`calc` has term mode and tactic mode variants. This is the tactic mode variant,
-which supports an additional feature: it works even if the goal is `a = z'`
-for some other `z'`; in this case it will not close the goal but will instead
-leave a subgoal proving `z = z'`.
+`calc` works as a term, as a tactic or as a `conv` tactic.
 
 See [Theorem Proving in Lean 4][tpil4] for more information.
 
@@ -856,34 +861,15 @@ example (h : ∀ i : ℕ, i < 7 → ∃ j, i < j ∧ j < i+i) : True := by
 Defined in: `Std.Tactic.tacticClassical_`
 
 `classical tacs` runs `tacs` in a scope where `Classical.propDecidable` is a low priority
-local instance. It differs from `classical!` in that `classical!` uses a local variable,
-which has high priority:
-```lean
-noncomputable def foo : Bool := by
-  classical!
-  have := ∀ p, decide p -- uses the classical instance
-  exact decide (0 < 1) -- uses the classical instance even though `0 < 1` is decidable
+local instance.
 
-def bar : Bool := by
-  classical
-  have := ∀ p, decide p -- uses the classical instance
-  exact decide (0 < 1) -- uses the decidable instance
-```
 Note that (unlike lean 3) `classical` is a scoping tactic - it adds the instance only within the
 scope of the tactic.
 
 # classical!
-Defined in: `Std.Tactic.classical!`
+Defined in: `Std.Tactic.tacticClassical!`
 
-`classical!` adds a proof of `Classical.propDecidable` as a local variable, which makes it
-available for instance search and effectively makes all propositions decidable.
-```lean
-noncomputable def foo : Bool := by
-  classical!
-  have := ∀ p, decide p -- uses the classical instance
-  exact decide (0 < 1) -- uses the classical instance even though `0 < 1` is decidable
-```
-Consider using `classical` instead if you want to use the decidable instance when available.
+`classical!` has been removed; use `classical` instead
 
 # clean
 Defined in: `Mathlib.Tactic.tacticClean_`
@@ -1351,6 +1337,12 @@ It can be extended by adding more macro definitions, e.g.
 macro_rules | `(tactic| decreasing_trivial) => `(tactic| linarith)
 ```
 
+# decreasing_trivial_pre_omega
+Defined in: `tacticDecreasing_trivial_pre_omega`
+
+Variant of `decreasing_trivial` that does not use `omega`, intended to be used in core modules
+before `omega` is available.
+
 # decreasing_with
 Defined in: `tacticDecreasing_with_`
 
@@ -1626,19 +1618,6 @@ Defined in: `Lean.Parser.Tactic.failIfSuccess`
 `fail_if_success t` fails if the tactic `t` succeeds.
 
 # false_or_by_contra
-Defined in: `false_or_by_contra`
-
-Changes the goal to `False`, retaining as much information as possible:
-
-If the goal is `False`, do nothing.
-If the goal is an implication or a function type, introduce the argument and restart.
-(In particular, if the goal is `x ≠ y`, introduce `x = y`.)
-Otherwise, for a propositional goal `P`, replace it with `¬ ¬ P`
-(attempt to find a `Decidable` instance, but otherwise falling back to working classically)
-and introduce `¬ P`.
-For a non-propositional goal use `False.elim`.
-
-# false_or_by_contra
 Defined in: `Lean.Parser.Tactic.falseOrByContra`
 
 Changes the goal to `False`, retaining as much information as possible:
@@ -1650,19 +1629,6 @@ Changes the goal to `False`, retaining as much information as possible:
   (attempting to find a `Decidable` instance, but otherwise falling back to working classically)
   and introduce `¬ P`.
 * For a non-propositional goal use `False.elim`.
-
-# false_or_by_contra
-Defined in: `tacticFalse_or_by_contra`
-
-Changes the goal to `False`, retaining as much information as possible:
-
-If the goal is `False`, do nothing.
-If the goal is an implication or a function type, introduce the argument and restart.
-(In particular, if the goal is `x ≠ y`, introduce `x = y`.)
-Otherwise, for a propositional goal `P`, replace it with `¬ ¬ P`
-(attempt to find a `Decidable` instance, but otherwise falling back to working classically)
-and introduce `¬ P`.
-For a non-propositional goal use `False.elim`.
 
 # fapply
 Defined in: `Std.Tactic.tacticFapply_`
@@ -1880,15 +1846,35 @@ Defined in: `«tacticGeneralize'_:_=_»`
 Backwards compatibility shim for `generalize`.
 
 # generalize_proofs
-Defined in: `Mathlib.Tactic.GeneralizeProofs.generalizeProofs`
+Defined in: `Mathlib.Tactic.generalizeProofsElab`
 
-Generalize proofs in the goal, naming them with the provided list.
+`generalize_proofs ids* [at locs]?` generalizes proofs in the current goal,
+turning them into new local hypotheses.
+
+- `generalize_proofs` generalizes proofs in the target.
+- `generalize_proofs at h₁ h₂` generalized proofs in hypotheses `h₁` and `h₂`.
+- `generalize_proofs at *` generalizes proofs in the entire local context.
+- `generalize_proofs pf₁ pf₂ pf₃` uses names `pf₁`, `pf₂`, and `pf₃` for the generalized proofs.
+  These can be `_` to not name proofs.
+
+If a proof is already present in the local context, it will use that rather than create a new
+local hypothesis.
+
+When doing `generalize_proofs at h`, if `h` is a let binding, its value is cleared,
+and furthermore if `h` duplicates a preceding local hypothesis then it is eliminated.
+
+The tactic is able to abstract proofs from under binders, creating universally quantified
+proofs in the local context.
+To disable this, use `generalize_proofs (config := { abstract := false })`.
+The tactic is also set to recursively abstract proofs from the types of the generalized proofs.
+This can be controlled with the `maxDepth` configuration option,
+with `generalize_proofs (config := { maxDepth := 0 })` turning this feature off.
 
 For example:
 ```lean
-example : List.nthLe [1, 2] 1 dec_trivial = 2 := by
-  -- ⊢ [1, 2].nthLe 1 _ = 2
-  generalize_proofs h,
+example : List.nthLe [1, 2] 1 (by simp) = 2 := by
+  -- ⊢ [1, 2].nthLe 1 ⋯ = 2
+  generalize_proofs h
   -- h : 1 < [1, 2].length
   -- ⊢ [1, 2].nthLe 1 h = 2
 ```
@@ -2326,7 +2312,7 @@ iterate n
 # left
 Defined in: `Lean.Parser.Tactic.left`
 
-Applies the second constructor when
+Applies the first constructor when
 the goal is an inductive type with exactly two constructors, or fails otherwise.
 ```lean
 example : True ∨ False := by
@@ -2481,9 +2467,9 @@ optional arguments:
 * If `splitNe` is `true`, `linarith` will case split on disequality hypotheses.
   For a given `x ≠ y` hypothesis, `linarith` is run with both `x < y` and `x > y`,
   and so this runs linarith exponentially many times with respect to the number of
-  disequality hypotheses. (False by default.)
-* If `exfalso` is false, `linarith` will fail when the goal is neither an inequality nor `false`.
-  (True by default.)
+  disequality hypotheses. (`false` by default.)
+* If `exfalso` is `false`, `linarith` will fail when the goal is neither an inequality nor `False`.
+  (`true` by default.)
 * `restrict_type` (not yet implemented in mathlib4)
   will only use hypotheses that are inequalities over `tp`. This is useful
   if you have e.g. both integer and rational valued inequalities in the local context, which can
@@ -2541,9 +2527,9 @@ optional arguments:
 * If `splitNe` is `true`, `linarith` will case split on disequality hypotheses.
   For a given `x ≠ y` hypothesis, `linarith` is run with both `x < y` and `x > y`,
   and so this runs linarith exponentially many times with respect to the number of
-  disequality hypotheses. (False by default.)
-* If `exfalso` is false, `linarith` will fail when the goal is neither an inequality nor `false`.
-  (True by default.)
+  disequality hypotheses. (`false` by default.)
+* If `exfalso` is `false`, `linarith` will fail when the goal is neither an inequality nor `False`.
+  (`true` by default.)
 * `restrict_type` (not yet implemented in mathlib4)
   will only use hypotheses that are inequalities over `tp`. This is useful
   if you have e.g. both integer and rational valued inequalities in the local context, which can
@@ -2917,7 +2903,8 @@ Defined in: `Mathlib.Tactic.Nontriviality.nontriviality`
 
 Attempts to generate a `Nontrivial α` hypothesis.
 
-The tactic first looks for an instance using `infer_instance`.
+The tactic first checks to see that there is not already a `Nontrivial α` instance
+before trying to synthesize one using other techniques.
 
 If the goal is an (in)equality, the type `α` is inferred from the goal.
 Otherwise, the type needs to be specified in the tactic invocation, as `nontriviality α`.
@@ -2960,11 +2947,14 @@ example {α : Type} (a b : α) (h : a = b) : myeq a b := by
 # norm_cast
 Defined in: `Lean.Parser.Tactic.tacticNorm_cast_`
 
-The `norm_cast` family of tactics is used to normalize casts inside expressions.
-It is basically a `simp` tactic with a specific set of lemmas to move casts
+The `norm_cast` family of tactics is used to normalize certain coercions (*casts*) in expressions.
+- `norm_cast` normalizes casts in the target.
+- `norm_cast at h` normalizes casts in hypothesis `h`.
+
+The tactic is basically a version of `simp` with a specific set of lemmas to move casts
 upwards in the expression.
 Therefore even in situations where non-terminal `simp` calls are discouraged (because of fragility),
-`norm_cast` is considered safe.
+`norm_cast` is considered to be safe.
 It also has special handling of numerals.
 
 For instance, given an assumption
@@ -2972,22 +2962,22 @@ For instance, given an assumption
 a b : ℤ
 h : ↑a + ↑b < (10 : ℚ)
 ```
-
 writing `norm_cast at h` will turn `h` into
 ```lean
 h : a + b < 10
 ```
 
-There are also variants of `exact`, `apply`, `rw`, and `assumption` that
-work modulo `norm_cast` - in other words, they apply `norm_cast` to make
-them more flexible. They are called `exact_mod_cast`, `apply_mod_cast`,
-`rw_mod_cast`, and `assumption_mod_cast`, respectively.
-Writing `exact_mod_cast h` and `apply_mod_cast h` will normalize casts
-in the goal and `h` before using `exact h` or `apply h`.
-Writing `assumption_mod_cast` will normalize casts in the goal and, for
-every hypothesis `h` in the context, it will try to normalize casts in `h` and use
-`exact h`.
-`rw_mod_cast` acts like the `rw` tactic but it applies `norm_cast` between steps.
+There are also variants of basic tactics that use `norm_cast` to normalize expressions during
+their operation, to make them more flexible about the expressions they accept
+(we say that it is a tactic *modulo* the effects of `norm_cast`):
+- `exact_mod_cast` for `exact` and `apply_mod_cast` for `apply`.
+  Writing `exact_mod_cast h` and `apply_mod_cast h` will normalize casts
+  in the goal and `h` before using `exact h` or `apply h`.
+- `rw_mod_cast` for `rw`. It applies `norm_cast` between rewrites.
+- `assumption_mod_cast` for `assumption`.
+  This is effectively `norm_cast at *; assumption`, but more efficient.
+  It normalizes casts in the goal and, for every hypothesis `h` in the context,
+  it will try to normalize casts in `h` and use `exact h`.
 
 See also `push_cast`, which moves casts inwards rather than lifting them outwards.
 
@@ -3267,22 +3257,37 @@ where `a = a'`, `b = b'`, and `c = c'` can be proved using `pure_coherence`
 # push_cast
 Defined in: `Lean.Parser.Tactic.pushCast`
 
-`push_cast` rewrites the goal to move casts inward, toward the leaf nodes.
+`push_cast` rewrites the goal to move certain coercions (*casts*) inward, toward the leaf nodes.
 This uses `norm_cast` lemmas in the forward direction.
 For example, `↑(a + b)` will be written to `↑a + ↑b`.
-It is equivalent to `simp only with push_cast`.
-It can also be used at hypotheses with `push_cast at h`
-and with extra simp lemmas with `push_cast [int.add_zero]`.
+- `push_cast` moves casts inward in the goal.
+- `push_cast at h` moves casts inward in the hypothesis `h`.
+It can be used with extra simp lemmas with, for example, `push_cast [Int.add_zero]`.
 
+Example:
 ```lean
-example (a b : ℕ) (h1 : ((a + b : ℕ) : ℤ) = 10) (h2 : ((a + b + 0 : ℕ) : ℤ) = 10) :
-  ((a + b : ℕ) : ℤ) = 10 :=
-begin
-  push_cast,
-  push_cast at h1,
-  push_cast [int.add_zero] at h2,
-end
+example (a b : Nat)
+    (h1 : ((a + b : Nat) : Int) = 10)
+    (h2 : ((a + b + 0 : Nat) : Int) = 10) :
+    ((a + b : Nat) : Int) = 10 := by
+  /-
+  h1 : ↑(a + b) = 10
+  h2 : ↑(a + b + 0) = 10
+  ⊢ ↑(a + b) = 10
+  -/
+  push_cast
+  /- Now
+  ⊢ ↑a + ↑b = 10
+  -/
+  push_cast at h1
+  push_cast [Int.add_zero] at h2
+  /- Now
+  h1 h2 : ↑a + ↑b = 10
+  -/
+  exact h1
 ```
+
+See also `norm_cast`.
 
 # push_neg
 Defined in: `Mathlib.Tactic.PushNeg.tacticPush_neg_`
@@ -3360,7 +3365,7 @@ the input expression). An `rcases` pattern has the following grammar:
   and so on.
 * A `@` before a tuple pattern as in `@⟨p1, p2, p3⟩` will bind all arguments in the constructor,
   while leaving the `@` off will only use the patterns on the explicit arguments.
-* An alteration pattern `p1 | p2 | p3`, which matches an inductive type with multiple constructors,
+* An alternation pattern `p1 | p2 | p3`, which matches an inductive type with multiple constructors,
   or a nested disjunction like `a ∨ b ∨ c`.
 
 A pattern like `⟨a, b, c⟩ | ⟨d, e⟩` will do a split over the inductive datatype,
@@ -3833,7 +3838,7 @@ Defined in: `Lean.Parser.Tactic.rwSeq`
 `rw` is like `rewrite`, but also tries to close the goal by "cheap" (reducible) `rfl` afterwards.
 
 # rw?
-Defined in: `Mathlib.Tactic.Rewrites.rewrites'`
+Defined in: `Lean.Parser.Tactic.rewrites?`
 
 `rw?` tries to find a lemma which can rewrite the goal.
 
@@ -4539,6 +4544,11 @@ macro_rules | `(tactic| trivial) => `(tactic| simp)
 Defined in: `Lean.Parser.Tactic.tacticTry_`
 
 `try tac` runs `tac` and succeeds even if `tac` failed.
+
+# try_this
+Defined in: `Mathlib.Tactic.tacticTry_this_`
+
+Produces the text `Try this: <tac>` with the given tactic, and then executes it.
 
 # type_check
 Defined in: `tacticType_check_`
