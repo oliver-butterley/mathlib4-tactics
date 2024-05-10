@@ -10,7 +10,7 @@ jobs:
     permissions:
       issues: write         # required to create issues
       pull-requests: write  # required to create pull requests
-      contents: read
+      contents: write
     steps:
       - name: Update Lean project
         uses:  oliver-butterley/lean-update-action@v1-alpha
