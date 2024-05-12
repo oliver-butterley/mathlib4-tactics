@@ -4952,4 +4952,5 @@ runs `X` and verifies that it still prints "Try this: Y".
 syntax ... [Std.Tactic.seq_focus]
 `t <;> [t1; t2; ...; tn]` focuses on the first goal and applies `t`, which should result in `n`
 subgoals. It then applies each `ti` to the corresponding goal and collects the resulting
-subgoals.  syntax ... [cdot] `· tac` focuses on the main goal and tries to solve it using `tac`, or else fails.
+subgoals.  syntax ... [cdot] `· tac` focuses on the main goal and tries to solve it using `tac`, or else fails.  
+
