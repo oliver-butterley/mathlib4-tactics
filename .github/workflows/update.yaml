@@ -2,7 +2,9 @@ name: Update Lean
 on:
   schedule:
     - cron: "0 11 * * 4"    # every Wednesday at 11:00 UTC
-  workflow_dispatch:        # allow manual starts
+  push:
+    branches:
+      - main
 
 jobs:
   update_lean:
