@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   update_lean:
@@ -14,6 +15,8 @@ jobs:
       pull-requests: write  # required to create pull requests
       contents: write
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Update Lean project
         uses:  oliver-butterley/lean-update-action@v1-alpha.3
         with:
