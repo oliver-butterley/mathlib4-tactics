@@ -12,8 +12,6 @@ Use `#check (t)` to pretty print it as an elaborated expression.
 Like the `#check` command, the `#check` tactic allows stuck typeclass instance problems.
 These become metavariables in the output.
 
-# #find
-Defined in: `Mathlib.Tactic.Find.«tactic#find_»`
 
 
 # (
