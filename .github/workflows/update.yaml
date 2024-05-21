@@ -34,11 +34,6 @@ jobs:
         run: |
           lake env lean --run Main.lean > src/tactics.md
           python3 script.py
-          echo "debug info:"
-          ls
-          git diff -w "src/tactics.md"
-          git diff --name-only
-          echo "debug info end"
           if [[ -n $(git diff -w "src/tactics.md") ]]; then
             echo "files_changed=true"  >> "$GITHUB_OUTPUT"
            else
@@ -47,7 +42,7 @@ jobs:
           cat "$GITHUB_OUTPUT"
 
   deploy:
-    if: needs.update.outputs.updated == true
+    # if: needs.update.outputs.updated == true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -56,6 +51,7 @@ jobs:
     steps:
       - name: Commit updated version
         run: |
+          echo ${{ needs.update.outputs.updated }}
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR_ID+$GITHUB_ACTOR@users.noreply.github.com"
           git add .
