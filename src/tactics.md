@@ -3,6 +3,10 @@ Lean version: `{{#include ../lean-toolchain}}`
 # #adaptation_note
 Defined in: `«tactic#adaptation_note_»`
 
+Adaptation notes are comments that are used to indicate that a piece of code
+has been changed to accomodate a change in Lean core.
+They typically require further action/maintenance to be taken in the future.
+
 # #check
 Defined in: `Mathlib.Tactic.«tactic#check__»`
 
