@@ -25,6 +25,9 @@ jobs:
         id: update-lean-mathlib
         uses: oliver-butterley/lean-update@v1-alpha
 
+      - name: debug
+        run: echo ${{ steps.update-lean-mathlib.outputs.result }}
+
       - name: When update succeeds generate markdown file
         if: steps.update-lean-mathlib.outputs.result == 'update-succeeds'
         id: update-tactic-list
