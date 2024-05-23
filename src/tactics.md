@@ -2097,6 +2097,10 @@ Defined in: `Mathlib.Tactic.Hint.hintStx`
 The `hint` tactic tries every tactic registered using `register_hint tac`,
 and reports any that succeed.
 
+# html!
+Defined in: `ProofWidgets.htmlTac`
+
+
 # induction
 Defined in: `Lean.Parser.Tactic.induction`
 
@@ -4320,6 +4324,11 @@ a warning whenever a proof uses `sorry`, so you aren't likely to miss it, but
 you can double check if a theorem depends on `sorry` by using
 `#print axioms my_thm` and looking for `sorryAx` in the axiom list.
 
+# sorry_if_sorry
+Defined in: `CategoryTheory.sorryIfSorry`
+
+Close the main goal with `sorry` if its type contains `sorry`, and fail otherwise.
+
 # specialize
 Defined in: `Lean.Parser.Tactic.specialize`
 
@@ -4765,6 +4774,18 @@ This also exists as a `conv`-mode tactic.
 
 Weak-head normal form is when the outer-most expression has been fully reduced, the expression
 may contain subexpressions which have not been reduced.
+
+# with_panel_widgets
+Defined in: `ProofWidgets.withPanelWidgetsTacticStx`
+
+Display the selected panel widgets in the nested tactic script. For example,
+assuming we have written a `GeometryDisplay` component,
+```lean
+by with_panel_widgets [GeometryDisplay]
+  simp
+  rfl
+```
+will show the geometry display alongside the usual tactic state throughout the proof.
 
 # with_reducible
 Defined in: `Lean.Parser.Tactic.withReducible`
